@@ -9,17 +9,17 @@ import { EventEmitter } from 'events';
 })
 export class ApiService {
 	private headers: HttpHeaders = new HttpHeaders()
-	public connected: Boolean = false
-	public user: Object
+	public connected: boolean = false
+	public user: object
 
 	constructor(private http: HttpClient) { }
 
 	/**
 	 * Login user and get information of the user
-	 * @param email
-	 * @param password
+	 * @param email email of the user
+	 * @param password password of the user
 	 */
-	public async login(email: String, password: String): Promise<any> {
+	public async login(email: string, password: string): Promise<any> {
 		const res = await this.http.post(`${config.API_URL}/login`, { email, password }).toPromise();
 		if (res['status'] === 'success') {
 			this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
@@ -29,13 +29,7 @@ export class ApiService {
 		return false;
 	}
 
-	/**
-	 * Get properties
-	 */
-	public get_properties(): Observable<any> {
-		return this.http.get(`${config.API_URL}/properties`, { headers: this.headers })
-	}
-
+	// ------------ MEMBERS ------------
 	/**
 	 * Get members
 	 */
@@ -43,8 +37,129 @@ export class ApiService {
 		return this.http.get(`${config.API_URL}/members`, { headers: this.headers })
 	}
 
+	/**
+	 * Get member id
+	 * @param _id id of the member
+	 */
 	public get_member_id(_id: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/member`, { params: { ['_id']: _id } , headers: this.headers })
+		return this.http.get(`${config.API_URL}/member`, { params: { _id }, headers: this.headers })
 	}
+
+	/**
+	 * Get ratio of the member
+	 * @param _id id of the member
+	 */
+	public get_member_ration(_id: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/member/ration`, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * Add a member
+	 * @param member 
+	 */
+	public add_member(member: object): Observable<any> {
+		return this.http.post(`${config.API_URL}/member`, { ...member },  { headers: this.headers })
+	}
+
+	/**
+	 * Update a member
+	 * @param member 
+	 */
+	public update_member(member: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/member`, { ...member }, { params: { _id: member['_id'] }, headers: this.headers })
+	}
+
+	/**
+	 * Delete a member
+	 * @param member 
+	 */
+	public delete_member(_id: string): Observable<any> {
+		return this.http.delete(`${config.API_URL}/member`, { params: { _id }, headers: this.headers })
+	}
+	// ------------ END ------------
+ 
+
+	// ------------ PROPERTIES ------------
+	/**
+	 * Get all properties
+	 */
+	public get_properties(): Observable<any> {
+		return this.http.get(`${config.API_URL}/properties`, { headers: this.headers })
+	}
+
+	/**
+	 * Get a property
+	 * @param _id id of the property
+	 */
+	public get_property(_id: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/property`, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * Get all properties with this keywords
+	 * @param keywords list of keywords
+	 */
+	public get_properties_by_keywords(keywords: string[]): Observable<any> {
+		return this.http.get(`${config.API_URL}/properties/keywords`, { params: { keywords }, headers: this.headers })
+	}
+
+	/**
+	 * Get all properties of a member
+	 * @param email email of a member
+	 */
+	public get_properties_by_email(email: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/properties/owner`)
+	}
+
+	/**
+	 * Get properties by date
+	 * @param date minimum date (format dd-mm-yyy AM)
+	 */
+	public get_properties_by_date(date: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/properties/date`, { params: { date }, headers: this.headers })
+	}
+
+	/**
+	 * Add a property
+	 * @param property 
+	 */
+	public add_property(property: object): Observable<any> {
+		return this.http.post(`${config.API_URL}/property`, { ...property }, { headers: this.headers })
+	}
+
+	/**
+	 * Delete a property
+	 * @param _id 
+	 */
+	public delete_property(_id: string): Observable<any> {
+		return this.http.delete(`${config.API_URL}/property`, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * Update a property
+	 * @param property 
+	 */
+	public update_property(property: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/property`, { ...property }, { params: { _id: property['_id'] }, headers: this.headers })
+	}
+
+	/**
+	 * Update uses of a property
+	 * @param _id 
+	 * @param uses 
+	 */
+	public update_property_uses(_id: string, uses: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/property/uses`, { uses }, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * 
+	 * @param _id 
+	 * @param disponibilities 
+	 */
+	public update_property_disponibilities(_id: string, disponibilities: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/property/disponibilities`, { disponibilities }, { params: { _id }, headers: this.headers })
+	}
+	// ------------ END ------------
 
 }

@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from './api.service';
+import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+	subscription: Subscription[]
+
 	constructor(private api: ApiService) { }
 
 	ngOnInit() { }
@@ -14,8 +17,14 @@ export class AppComponent implements OnInit {
 	public async login() {
 		const connected = await this.api.login('hoover.dalton@duoflex.com', 'password')
 		if (connected) {
-			this.api.get_members().subscribe(data => { })
+			this.subscription.push(this.api.get_members().subscribe(data => { }))
 		}
 	}
 
+	ngOnDestroy() {
+		// Unsubscribe each subscription to avoid leak memory
+		this.subscription.forEach(sub => {
+			sub.unsubscribe()
+		})
+	}
 }
