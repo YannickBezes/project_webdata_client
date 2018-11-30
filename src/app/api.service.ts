@@ -162,4 +162,87 @@ export class ApiService {
 	}
 	// ------------ END ------------
 
+
+	// ------------ SERVICES ------------
+		/**
+	 * Get all services
+	 */
+	public get_services(): Observable<any> {
+		return this.http.get(`${config.API_URL}/services`, { headers: this.headers })
+	}
+
+	/**
+	 * Get a service
+	 * @param _id id of the service
+	 */
+	public get_service(_id: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/service`, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * Get all services with this keywords
+	 * @param keywords list of keywords
+	 */
+	public get_services_by_keywords(keywords: string[]): Observable<any> {
+		return this.http.get(`${config.API_URL}/services/keywords`, { params: { keywords }, headers: this.headers })
+	}
+
+	/**
+	 * Get all services of a member
+	 * @param email email of a member
+	 */
+	public get_services_by_email(email: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/services/owner`)
+	}
+
+	/**
+	 * Get services by date
+	 * @param date minimum date (format dd-mm-yyy AM)
+	 */
+	public get_services_by_date(date: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/services/date`, { params: { date }, headers: this.headers })
+	}
+
+	/**
+	 * Add a service
+	 * @param service 
+	 */
+	public add_service(service: object): Observable<any> {
+		return this.http.post(`${config.API_URL}/service`, { ...service }, { headers: this.headers })
+	}
+
+	/**
+	 * Delete a service
+	 * @param _id 
+	 */
+	public delete_service(_id: string): Observable<any> {
+		return this.http.delete(`${config.API_URL}/service`, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * Update a service
+	 * @param property 
+	 */
+	public update_service(service: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/service`, { ...service }, { params: { _id: service['_id'] }, headers: this.headers })
+	}
+
+	/**
+	 * Update uses of a service
+	 * @param _id 
+	 * @param uses 
+	 */
+	public update_service_uses(_id: string, uses: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/service/uses`, { uses }, { params: { _id }, headers: this.headers })
+	}
+
+	/**
+	 * 
+	 * @param _id 
+	 * @param disponibilities 
+	 */
+	public update_service_disponibilities(_id: string, disponibilities: object): Observable<any> {
+		return this.http.patch(`${config.API_URL}/service/disponibilities`, { disponibilities }, { params: { _id }, headers: this.headers })
+	}
+	// ------------ END ------------
 }
