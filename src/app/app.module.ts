@@ -12,8 +12,8 @@ import { HomeModule } from './home/home.module';
 	],
 	imports: [
 		BrowserModule,
-		AppRoutingModule,
 		HttpClientModule,
+		AppRoutingModule,
 		HomeModule
 	],
 	providers: [],

@@ -1,48 +1,7 @@
-<div class="search_container container">
+<div class="search_container">
 	<form class="search_form">
-		<div class="search_div_input">
-			<select name="category_id" id="categories" class="form-control">
-						<option value="-3">Toutes les catégories de demandes</option>
-						<option role="separator" class="white_space" disabled=""></option>
-						<optgroup class="" label="Demandes d'objets">
-							<option class="" value="-1">Tous les objets</option>
-							<option value="1">Outillage &amp; Travaux</option>
-							<option value="10">Matériel de Jardin</option>
-							<option value="16">Maison &amp; Confort</option>
-							<option value="23">Evénement, Réception &amp; Fête</option>
-							<option value="30">High Tech &amp; Fournitures de bureau</option>
-							<option value="37">Matériel de Sport</option>
-							<option value="48">Loisirs</option>
-							<option value="60">Mode &amp; Accessoires Adulte, Bien-être &amp; Bagagerie</option>
-							<option value="67">Mode Enfant, Bébé &amp; Puériculture</option>
-							<option value="73">Transport &amp; Accessoires Auto, Moto &amp; Bateau</option>
-							<option value="86">Immobilier</option>
-						</optgroup>
-						<option role="separator" disabled=""></option>
-						<optgroup label="Demandes de services">
-							<option value="-2">Tous les services</option>
-							<option value="123">Bricolage - Travaux</option>
-							<option value="142">Jardinage - Piscine</option>
-							<option value="149">Déménagement - Manutention</option>
-							<option value="152">Dépannage - Réparation de matériel</option>
-							<option value="156">Entretien - Réparation véhicules</option>
-							<option value="162">Services véhiculés</option>
-							<option value="168">Services à la personne</option>
-							<option value="177">Enfants</option>
-							<option value="183">Animaux</option>
-							<option value="191">Informatique et web</option>
-							<option value="200">Photographie - Vidéo</option>
-							<option value="209">Animation - Evénements</option>
-							<option value="222">Cours - Formations</option>
-							<option value="241">Administratif - Bureautique</option>
-							<option value="251">Mode - Santé - Bien être</option>
-							<option value="264">Sport - Partenaires</option>
-							<option value="279">Restauration - Réception</option>
-						</optgroup>
-						<option role="separator" class="white_space" disabled=""></option>
-			</select>
-			<input id="near-you-address" class="form-control" type="text" name="address" value="" placeholder="Ville ou CP">
-		</div>
+		<input type="text" class="search_form_input" name="input_search" placeholder="Mot clés" required>
+		<label for="input_search"></label>
 		<input class="btn-o--pink-w btn-o--slim btn-search" name="form_near_you" type="submit" value="Rechercher">
 	</form>
 </div>

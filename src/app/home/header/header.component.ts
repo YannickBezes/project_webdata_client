@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+	admin: boolean = false
+	constructor() { }
 
-  constructor() { }
+	ngOnInit() {
+		this.admin = this.is_admin()
+	}
 
-  ngOnInit() {
-  }
+	is_admin() {
+		let user: Object = JSON.parse(localStorage.getItem('user'))
+		if (user != null) {
+			return user['role'] === 'admin'
+		}
+		return false
+	}
 
 }

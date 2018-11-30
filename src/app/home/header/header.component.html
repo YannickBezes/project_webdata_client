@@ -7,10 +7,8 @@
 	</div>
 	<nav class="menubar__navWrapper">
 		<ul class="menubar__navList">
-			<li class="menubar__navItem">
-				<a href="https://www.allovoisins.com/near_you#arrival" class="menubar__navLink">
-					Toutes les demandes
-				</a>
+			<li class="menubar__navItem" *ngIf="admin">
+				<a class="menubar__navLink">Admin</a>
 			</li>
 			<li class="menubar__navItem">
 				<a class="menubar__navLink signin_tracked_ga" rel="nofollow" data-href="https://www.allovoisins.com/home/signinorsignup/signup">Inscription</a>

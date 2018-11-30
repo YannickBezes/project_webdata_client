@@ -4,21 +4,26 @@ import { Subscription } from 'rxjs';
 
 @Component({
 	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css']
+	templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy {
-	subscription: Subscription[]
+	subscription: Subscription[] = []
 
 	constructor(private api: ApiService) { }
 
-	ngOnInit() { }
+	ngOnInit() {
+		this.login()
+	}
 
 	public async login() {
-		const connected = await this.api.login('hoover.dalton@duoflex.com', 'password')
-		if (connected) {
-			this.subscription.push(this.api.get_members().subscribe(data => { }))
-		}
+		try {
+			const connected = await this.api.login('hoover.dalton@duoflex.com', 'password')
+			if (connected) {
+				// TODO: print a message
+			}
+		} catch (error) {
+			console.error("Connexion failed")
+		}	
 	}
 
 	ngOnDestroy() {

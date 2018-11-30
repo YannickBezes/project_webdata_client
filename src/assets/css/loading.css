@@ -1,0 +1,39 @@
+@keyframes LoadingBar {
+    0% {
+        transform: translateX(-102%)
+    }
+
+    25% {
+        transform: translate(25%)
+    }
+
+    50% {
+        transform: translate(50%)
+    }
+
+    100% {
+        transform: translateX(102%)
+    }
+}
+.loading-bar {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    overflow-x: hidden;
+    background-color: #333;
+}
+.loading-bar:before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 102%;
+    background-color: red;
+    animation: LoadingBar 1.5s cubic-bezier(.5, .01, .51, 1) infinite;
+}

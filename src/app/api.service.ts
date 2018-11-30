@@ -10,7 +10,6 @@ import { EventEmitter } from 'events';
 export class ApiService {
 	private headers: HttpHeaders = new HttpHeaders()
 	public connected: boolean = false
-	public user: object
 
 	constructor(private http: HttpClient) { }
 
@@ -23,7 +22,7 @@ export class ApiService {
 		const res = await this.http.post(`${config.API_URL}/login`, { email, password }).toPromise();
 		if (res['status'] === 'success') {
 			this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
-			this.user = res['data']['user'] // Get information of the user
+			localStorage.setItem('user', JSON.stringify(res['data']['user'])) // Get information of the user
 			return this.connected = true;
 		}
 		return false;
