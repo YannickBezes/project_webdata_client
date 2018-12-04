@@ -3,22 +3,22 @@
 		<div class="nearYou__profileItemAvatarWrapper">
 			<div class="nearYou__profileItemAvatar avatar--large">
 				<div class="nearYou__profileItemAvatarOverlay"></div>
-				<img [src]="item.url_image != '' ? item.url_image : 'https://static.allovoisins.com/uploads/avatars/d6a7871ee6c08e8768e16123b045f1d2.jpg'">
+				<img [src]="item['url_image'] != '' ? item['url_image'] : 'https://static.allovoisins.com/uploads/avatars/d6a7871ee6c08e8768e16123b045f1d2.jpg'">
 			</div>
 		</div>
 		<div class="nearYou__profileItemInfos">
-			<div class="nearYou__profileItemName">{{ item.owner.firstname }}</div>
+			<div class="nearYou__profileItemName">{{ item['owner']['firstname'] }}</div>
 			<div class="nearYou__profileItemPresentation">
 				<div class="nearYou__profileItemReview">
-					<strong>{{ item.name }}</strong>
+					<strong>{{ item['name'] }}</strong>
 					<br>
-					{{ item.description }}
+					{{ item['description'] }}
 				</div>
 			</div>
 			<div class="nearYou__profileItemBottom">
 				<div class="nearYou__profileItemBottomItem">
 					<img src="https://static.allovoisins.com/images/icons/pin.svg" alt="">
-					{{ item.owner.city }}
+					{{ item['owner']['city'] }}
 				</div>
 			</div>
 		</div>
