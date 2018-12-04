@@ -1,7 +1,6 @@
 <div class="search_container">
-	<form class="search_form">
-		<input type="text" class="search_form_input" name="input_search" placeholder="Mot clés" required>
-		<label for="input_search"></label>
-		<input class="btn-o--pink-w btn-o--slim btn-search" name="form_near_you" type="submit" value="Rechercher">
+	<form class="search_form" #searchForm="ngForm">
+		<input type="text" class="search_form_input" name="keyword" placeholder="Mot clés" required [(ngModel)]="keyword">
+		<input class="btn-o--pink-w btn-o--slim btn-search" type="button" value="Rechercher" (click)="expression">
 	</form>
 </div>

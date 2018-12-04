@@ -1,0 +1,15 @@
+.shop {
+    background: #edefec;
+}
+
+.shop_items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shop_items > * {
+    margin: 10px;
+    width: 100%;
+    cursor: pointer;
+}

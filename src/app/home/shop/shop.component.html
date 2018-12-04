@@ -1,3 +1,7 @@
-<p>
-  shop works!
-</p>
+<section class="shop">
+	<div class="container">
+		<div class="shop_items">
+			<app-item *ngFor="let item of list" [item]="item"></app-item>
+		</div>
+	</div>
+</section>

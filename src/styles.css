@@ -1,8 +1,16 @@
 @import "assets/css/css_reset.css";
 @import "assets/css/loading.css";
 
-* { outline: none }
-a { cursor: pointer }
+* {
+    outline: none
+}
+
+a {
+    cursor: pointer
+}
+html {
+    background: #edefec;
+}
 
 body.mobileDropdown {
     overflow-y: scroll;
@@ -2089,14 +2097,12 @@ body.mobileDropdown {
 .ribbon__background.ribbon__backgroundLeft {
     left: 0px;
     width: 142px;
-    background-image: url("/images/overlays/allomojis-overlay-left.png");
     background-size: 100%
 }
 
 .ribbon__background.ribbon__backgroundRight {
     right: 0px;
     width: 133px;
-    background-image: url("/images/overlays/allomojis-overlay-right.png");
     background-size: 100%
 }
 
@@ -2179,5 +2185,3 @@ body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-family: "Quicksand", sans-serif
 }
-
-/*# sourceMappingURL=base.css.map */

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 	templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit, OnDestroy {
-	subscription: Subscription[] = []
+	subscriptions: Subscription[] = []
 
 	constructor(private api: ApiService) { }
 
@@ -17,10 +17,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	public async login() {
 		try {
-			const connected = await this.api.login('hoover.dalton@duoflex.com', 'password')
-			if (connected) {
+			// const connected = await this.api.login('hoover.dalton@duoflex.com', 'password') // TODO: Remove it when we have create the login component
+			// if (connected) {
 				// TODO: print a message
-			}
+			// }
 		} catch (error) {
 			console.error("Connexion failed")
 		}	
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 	ngOnDestroy() {
 		// Unsubscribe each subscription to avoid leak memory
-		this.subscription.forEach(sub => {
+		this.subscriptions.forEach(sub => {
 			sub.unsubscribe()
 		})
 	}

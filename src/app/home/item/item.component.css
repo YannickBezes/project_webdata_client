@@ -1,0 +1,100 @@
+.nearYou__profileItem {
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 30px 20px -30px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+}
+
+.nearYou__profileItem:hover {
+    box-shadow: 0 20px 30px -20px rgba(0, 0, 0, 0.3);
+}
+
+.nearYou__profileItem:hover .nearYou__profileItemTitle {
+    color: #ff0066;
+}
+
+.nearYou__profileItem:hover .nearYou__profileItemAvatarOverlay {
+    opacity: 0.5;
+}
+
+.nearYou__profileItemId {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.nearYou__profileItemAvatarWrapper {
+    flex-grow: 0;
+    flex-shrink: 0;
+    overflow: initial;
+    position: relative;
+    background-color: #cccccc;
+    width: 120px;
+    height: 120px;
+    border-radius: 120px;
+}
+
+.nearYou__profileItemAvatarOverlay {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 120px;
+    opacity: 0;
+}
+
+.nearYou__profileItemInfos {
+    margin-left: 15px;
+}
+
+.nearYou__profileItemName {
+    color: #808080;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 22px;
+}
+
+.nearYou__profileItemPresentation {
+    color: #808080;
+    font-size: 16px;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nearYou__profileItemReview {
+    color: #b3b3b3;
+}
+
+.nearYou__profileItemReview strong {
+    color: #808080;
+    font-weight: bold;
+}
+
+.nearYou__profileItemBottom {
+    color: #b3b3b3;
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 500;
+    border-top: 1px solid #f0f0f0;
+}
+
+.nearYou__profileItemBottom img {
+    vertical-align: bottom;
+}
+
+.nearYou__profileItemBottomItem {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@media (max-width: 375px) {
+    .nearYou__profileItemAvatarWrapper {
+        width: 80px;
+        height: 80px;
+    }
+
+    .avatar--large {
+        width: 80px;
+        height: 80px;
+    }   
+}
