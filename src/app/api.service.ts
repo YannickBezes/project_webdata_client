@@ -41,7 +41,7 @@ export class ApiService {
 	 * @param _id id of the member
 	 */
 	public get_member_id(_id: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/member`, { params: { _id }, headers: this.headers })
+		return this.http.get(`${config.API_URL}/member/${_id}`, { headers: this.headers })
 	}
 
 	/**
@@ -49,7 +49,7 @@ export class ApiService {
 	 * @param _id id of the member
 	 */
 	public get_member_ration(_id: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/member/ration`, { params: { _id }, headers: this.headers })
+		return this.http.get(`${config.API_URL}/member/ration/${_id}`, { headers: this.headers })
 	}
 
 	/**
@@ -65,7 +65,7 @@ export class ApiService {
 	 * @param member 
 	 */
 	public update_member(member: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/member`, { ...member }, { params: { _id: member['_id'] }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/member/${member['_id']}`, { ...member }, { headers: this.headers })
 	}
 
 	/**
@@ -73,7 +73,7 @@ export class ApiService {
 	 * @param member 
 	 */
 	public delete_member(_id: string): Observable<any> {
-		return this.http.delete(`${config.API_URL}/member`, { params: { _id }, headers: this.headers })
+		return this.http.delete(`${config.API_URL}/member/${_id}`, { headers: this.headers })
 	}
 	// ------------ END ------------
  
@@ -91,15 +91,15 @@ export class ApiService {
 	 * @param _id id of the property
 	 */
 	public get_property(_id: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/property`, { params: { _id }, headers: this.headers })
+		return this.http.get(`${config.API_URL}/property/${_id}`, { headers: this.headers })
 	}
 
 	/**
-	 * Get all properties with this keywords
-	 * @param keywords list of keywords
+	 * Get all properties with this keyword
+	 * @param keyword keyword
 	 */
-	public get_properties_by_keywords(keywords: string[]): Observable<any> {
-		return this.http.get(`${config.API_URL}/properties/keywords`, { params: { keywords }, headers: this.headers })
+	public get_properties_by_keyword(keyword: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/properties/keyword/${keyword}`, { headers: this.headers })
 	}
 
 	/**
@@ -107,7 +107,7 @@ export class ApiService {
 	 * @param email email of a member
 	 */
 	public get_properties_by_email(email: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/properties/owner`)
+		return this.http.get(`${config.API_URL}/properties/owner/${email}`, { headers: this.headers })
 	}
 
 	/**
@@ -115,7 +115,7 @@ export class ApiService {
 	 * @param date minimum date (format dd-mm-yyy AM)
 	 */
 	public get_properties_by_date(date: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/properties/date`, { params: { date }, headers: this.headers })
+		return this.http.get(`${config.API_URL}/properties/date/${date}`, { headers: this.headers })
 	}
 
 	/**
@@ -131,7 +131,7 @@ export class ApiService {
 	 * @param _id 
 	 */
 	public delete_property(_id: string): Observable<any> {
-		return this.http.delete(`${config.API_URL}/property`, { params: { _id }, headers: this.headers })
+		return this.http.delete(`${config.API_URL}/property/${_id}`, { headers: this.headers })
 	}
 
 	/**
@@ -139,7 +139,7 @@ export class ApiService {
 	 * @param property 
 	 */
 	public update_property(property: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/property`, { ...property }, { params: { _id: property['_id'] }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/property/${property['_id']}`, { ...property }, { headers: this.headers })
 	}
 
 	/**
@@ -148,7 +148,7 @@ export class ApiService {
 	 * @param uses 
 	 */
 	public update_property_uses(_id: string, uses: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/property/uses`, { uses }, { params: { _id }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/property/uses/${_id}`, { uses }, { headers: this.headers })
 	}
 
 	/**
@@ -157,7 +157,7 @@ export class ApiService {
 	 * @param disponibilities 
 	 */
 	public update_property_disponibilities(_id: string, disponibilities: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/property/disponibilities`, { disponibilities }, { params: { _id }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/property/disponibilities/${_id}`, { disponibilities }, { headers: this.headers })
 	}
 	// ------------ END ------------
 
@@ -175,15 +175,15 @@ export class ApiService {
 	 * @param _id id of the service
 	 */
 	public get_service(_id: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/service`, { params: { _id }, headers: this.headers })
+		return this.http.get(`${config.API_URL}/service/${_id}`, { headers: this.headers })
 	}
 
 	/**
-	 * Get all services with this keywords
-	 * @param keywords list of keywords
+	 * Get all services with this keyword
+	 * @param keywords keyword
 	 */
-	public get_services_by_keywords(keywords: string[]): Observable<any> {
-		return this.http.get(`${config.API_URL}/services/keywords`, { params: { keywords }, headers: this.headers })
+	public get_services_by_keyword(keyword: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/services/keyword/${keyword}`, { headers: this.headers })
 	}
 
 	/**
@@ -191,7 +191,7 @@ export class ApiService {
 	 * @param email email of a member
 	 */
 	public get_services_by_email(email: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/services/owner`)
+		return this.http.get(`${config.API_URL}/services/owner/${email}`)
 	}
 
 	/**
@@ -199,7 +199,7 @@ export class ApiService {
 	 * @param date minimum date (format dd-mm-yyy AM)
 	 */
 	public get_services_by_date(date: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/services/date`, { params: { date }, headers: this.headers })
+		return this.http.get(`${config.API_URL}/services/date/${date}`, { headers: this.headers })
 	}
 
 	/**
@@ -215,7 +215,7 @@ export class ApiService {
 	 * @param _id 
 	 */
 	public delete_service(_id: string): Observable<any> {
-		return this.http.delete(`${config.API_URL}/service`, { params: { _id }, headers: this.headers })
+		return this.http.delete(`${config.API_URL}/service/${_id}`, { headers: this.headers })
 	}
 
 	/**
@@ -223,7 +223,7 @@ export class ApiService {
 	 * @param property 
 	 */
 	public update_service(service: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/service`, { ...service }, { params: { _id: service['_id'] }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/service/${service['_id']}`, { ...service }, { headers: this.headers })
 	}
 
 	/**
@@ -232,7 +232,7 @@ export class ApiService {
 	 * @param uses 
 	 */
 	public update_service_uses(_id: string, uses: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/service/uses`, { uses }, { params: { _id }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/service/uses/${_id}`, { uses }, { headers: this.headers })
 	}
 
 	/**
@@ -241,7 +241,7 @@ export class ApiService {
 	 * @param disponibilities 
 	 */
 	public update_service_disponibilities(_id: string, disponibilities: object): Observable<any> {
-		return this.http.patch(`${config.API_URL}/service/disponibilities`, { disponibilities }, { params: { _id }, headers: this.headers })
+		return this.http.patch(`${config.API_URL}/service/disponibilities/${_id}`, { disponibilities }, { headers: this.headers })
 	}
 	// ------------ END ------------
 }
