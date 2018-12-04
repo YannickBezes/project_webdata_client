@@ -1,5 +1,5 @@
-<div id="menubar" class="menubar">
-	<div id="menubar__logo" class="menubar__logo">
+<div class="menubar">
+	<div class="menubar__logo">
 		<a routerLink="/" title="AlloVoisins - Location de matériel et services entre particuliers">
 			<img src="https://static.allovoisins.com/images/allovoisins-logo.svg" alt="AlloVoisins - Location de matériel et services entre particuliers"
 			 class="menubar__logoPicture">
@@ -18,8 +18,8 @@
 			</li>
 		</ul>
 	</nav>
-	<div id="menubar__mobileNav" class="menubar__mobileNav">
-		<div class="menubar__mobileNavActions">
+	<div class="menubar__mobileNav" (click)="open = !open">
+		<div class="menubar__mobileNavAction">
 			<div id="menubar__mobileActionDropdown" class="menubar__mobileNavAction">
 				<div class="menubar__avatarOverlayIconWrapper">
 					<div class="menubar__avatarOverlayIcon menubar__avatarOverlayIcon--mobile"><span></span></div>
@@ -27,4 +27,13 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div id="menubar__mobileNavDropdown" class="menubar__mobileNavDropdown" [ngClass]="{'active': open}">
+	<ul class="menubar__navListMobile">
+			<li class="menubar__navItem"><a href="https://www.allovoisins.com/">Accueil</a></li>
+			<li class="menubar__navItem"><a href="https://www.allovoisins.com/?post=1" rel="nofollow">Poster une demande</a></li>
+			<li class="menubar__navItem"><a class="searches_tracked_ga" href="https://www.allovoisins.com/near_you#arrival">Toutes les demandes</a></li>
+			<li class="menubar__navItem"><a class="signin_tracked_ga" rel="nofollow" data-href="https://www.allovoisins.com/home/signinorsignup/signup">Inscription</a></li>
+			<li class="menubar__navItem"><a class="connect_tracked_ga" rel="nofollow" data-href="https://www.allovoisins.com/home/signinorsignup/signin">Connexion</a></li>
+	</ul>
 </div>

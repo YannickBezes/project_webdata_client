@@ -22,12 +22,19 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	onToSearch(keyword: string) {
-		this.subscriptions.push(this.api.get_properties_by_keyword(keyword).subscribe(res => {
-			console.log(res)
-			if (res["status"] === "success") {
-				this.properties = res['data']
-			}
-		}))
+		if (keyword) {
+			this.subscriptions.push(this.api.get_properties_by_keyword(keyword).subscribe(res => {
+				if (res["status"] === "success") {
+					this.properties = res['data']
+				}
+			}))
+		} else {
+			this.subscriptions.push(this.api.get_properties().subscribe(res => {
+				if (res["status"] === "success") {
+					this.properties = res['data']
+				}
+			}))
+		}
 	}
 
 	ngOnDestroy() {

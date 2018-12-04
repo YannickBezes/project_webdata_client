@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 	admin: boolean = false
+	open: boolean = false
 	constructor() { }
 
 	ngOnInit() {

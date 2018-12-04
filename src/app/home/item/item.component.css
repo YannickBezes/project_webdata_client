@@ -1,28 +1,20 @@
-.nearYou__profileItem {
-    border-radius: 8px;
+.item_container {
     background-color: #ffffff;
     box-shadow: 0 30px 20px -30px rgba(0, 0, 0, 0.08);
     padding: 15px;
-}
-
-.nearYou__profileItem:hover {
-    box-shadow: 0 20px 30px -20px rgba(0, 0, 0, 0.3);
-}
-
-.nearYou__profileItem:hover .nearYou__profileItemTitle {
-    color: #ff0066;
-}
-
-.nearYou__profileItem:hover .nearYou__profileItemAvatarOverlay {
-    opacity: 0.5;
-}
-
-.nearYou__profileItemId {
     display: flex;
     flex-wrap: nowrap;
 }
 
-.nearYou__profileItemAvatarWrapper {
+.item_container:hover {
+    box-shadow: 0 20px 30px -20px rgba(0, 0, 0, 0.3);
+}
+
+.item_container:hover .nearYou__profileItemTitle {
+    color: #ff0066;
+}
+
+.item_avatar_container {
     flex-grow: 0;
     flex-shrink: 0;
     overflow: initial;
@@ -33,27 +25,34 @@
     border-radius: 120px;
 }
 
-.nearYou__profileItemAvatarOverlay {
-    position: absolute;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
+.item_avatar {
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
     border-radius: 120px;
-    opacity: 0;
+    border-radius: 120px;
+    overflow: hidden;
 }
 
-.nearYou__profileItemInfos {
+.item_avatar img {
+    width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+.item_infos {
     margin-left: 15px;
+    width: 100%;
 }
 
-.nearYou__profileItemName {
+.item_owner_name {
     color: #808080;
     font-size: 20px;
     font-weight: bold;
     line-height: 22px;
 }
 
-.nearYou__profileItemPresentation {
+.item_presentation {
     color: #808080;
     font-size: 16px;
     line-height: 22px;
@@ -61,16 +60,16 @@
     text-overflow: ellipsis;
 }
 
-.nearYou__profileItemReview {
+.item_desc {
     color: #b3b3b3;
 }
 
-.nearYou__profileItemReview strong {
+.item_desc span {
     color: #808080;
     font-weight: bold;
 }
 
-.nearYou__profileItemBottom {
+.item_city {
     color: #b3b3b3;
     font-size: 11px;
     line-height: 15px;
@@ -78,22 +77,17 @@
     border-top: 1px solid #f0f0f0;
 }
 
-.nearYou__profileItemBottom img {
+.item_city img {
     vertical-align: bottom;
 }
 
-.nearYou__profileItemBottomItem {
-    display: inline-block;
-    vertical-align: middle;
-}
-
 @media (max-width: 375px) {
-    .nearYou__profileItemAvatarWrapper {
+    .item_avatar_container {
         width: 80px;
         height: 80px;
     }
 
-    .avatar--large {
+    .item_avatar {
         width: 80px;
         height: 80px;
     }   
