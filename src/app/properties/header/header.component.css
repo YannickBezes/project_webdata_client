@@ -278,3 +278,15 @@
 .menubar__avatarOverlayIcon.menubar__avatarOverlayIcon--mobile span::after {
     background: #b3b3b3
 }
+
+.menubar__navLink.mobile-active {
+    color: #333;
+}
+
+.menubar__navLink.mobile-active::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 2px;
+    background-color: #68dc57;
+}

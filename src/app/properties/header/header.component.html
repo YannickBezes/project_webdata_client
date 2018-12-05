@@ -30,10 +30,8 @@
 </div>
 <div id="menubar__mobileNavDropdown" class="menubar__mobileNavDropdown" [ngClass]="{'active': open}">
 	<ul class="menubar__navListMobile">
-			<li class="menubar__navItem"><a href="https://www.allovoisins.com/">Accueil</a></li>
-			<li class="menubar__navItem"><a href="https://www.allovoisins.com/?post=1" rel="nofollow">Poster une demande</a></li>
-			<li class="menubar__navItem"><a class="searches_tracked_ga" href="https://www.allovoisins.com/near_you#arrival">Toutes les demandes</a></li>
-			<li class="menubar__navItem"><a class="signin_tracked_ga" rel="nofollow" data-href="https://www.allovoisins.com/home/signinorsignup/signup">Inscription</a></li>
-			<li class="menubar__navItem"><a class="connect_tracked_ga" rel="nofollow" data-href="https://www.allovoisins.com/home/signinorsignup/signin">Connexion</a></li>
-	</ul>
+			<li class="menubar__navItem" *ngIf="admin"><a class="menubar__navLink">Admin</a></li>
+			<li class="menubar__navItem"><a routerLink="/properties" routerLinkActive="mobile-active" class="menubar__navLink">Biens</a></li>
+			<li class="menubar__navItem"><a routerLink="/services" routerLinkActive="mobile-active" class="menubar__navLink">Services</a></li>
+ 	</ul>
 </div>

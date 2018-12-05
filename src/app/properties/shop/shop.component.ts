@@ -6,11 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
 	styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
-	@Input() list: Object[]
+	@Input() items: Object[]
 	@Input() display_image: boolean = true
 
 	constructor() { }
 
 	ngOnInit() { }
-
 }

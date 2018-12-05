@@ -6,9 +6,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: calc(100vh - 116px);
 }
 
-.shop_items > * {
+.shop_items app-item {
     margin: 10px;
     width: 100%;
     cursor: pointer;
