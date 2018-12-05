@@ -7,6 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ShopComponent implements OnInit {
 	@Input() list: Object[]
+	@Input() display_image: boolean = true
+
 	constructor() { }
 
 	ngOnInit() { }

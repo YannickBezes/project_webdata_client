@@ -40,9 +40,13 @@
     padding: 0 15px;
 }
 
+.menubar__navLink {
+    color: #b3b3b3;
+}
+
 .menubar__navLink:hover {
     text-decoration: none;
-    color: #333
+    color: #333;
 }
 
 @media (max-width: 1180px) {

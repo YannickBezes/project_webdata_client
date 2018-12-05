@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ApiService } from '../api.service';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../api.service';
 
 @Component({
-	selector: 'app-home',
-	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.css']
+	selector: 'app-properties',
+	templateUrl: './properties.component.html',
+	styleUrls: ['./properties.component.css']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class PropertiesComponent implements OnInit, OnDestroy {
 	private subscriptions: Subscription[] = []
 	properties: object[] = []
 

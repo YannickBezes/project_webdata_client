@@ -1,0 +1,7 @@
+<app-header></app-header>
+<app-search (toSearch)="onToSearch($event)"></app-search>
+
+<app-shop *ngIf="services.length > 0" [list]="services" [display_image]="false"></app-shop>
+<div *ngIf="services.length === 0" class="no-result">
+    <p>Aucun résultat</p>
+</div>
