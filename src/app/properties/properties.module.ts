@@ -6,9 +6,9 @@ import { ShopComponent } from './shop/shop.component'
 import { HeaderComponent } from './header/header.component'
 import { SearchComponent } from './search/search.component'
 import { ItemComponent } from './item/item.component'
-import { PropertiesRoutingModule } from './properties-routing.module';
-import { PropertiesComponent } from './properties.component';
-import { PropertyComponent } from './property/property.component';
+import { PropertiesRoutingModule } from './properties-routing.module'
+import { PropertiesComponent } from './properties.component'
+import { PropertyComponent } from './property/property.component'
 
 @NgModule({
 	declarations: [
