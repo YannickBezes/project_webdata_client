@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PropertiesModule } from './properties/properties.module';
 import { ServicesModule } from './services/services.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 		AppRoutingModule,
 		PropertiesModule,
 		ServicesModule,
-		BrowserAnimationsModule
+		BrowserAnimationsModule,
+		MatNativeDateModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

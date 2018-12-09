@@ -17,5 +17,10 @@
 			<img src="https://static.allovoisins.com/images/icons/pin.svg" alt="">
 			{{ item['owner']['city'] }}
 		</div>
+		<div class="item_keywords">
+			<i class="fa fa-tag"></i>
+			Mot-clés :
+			<span *ngFor="let keyword of item['keywords']; let isLast=last">{{ keyword }}{{ isLast ? '' : ', ' }} </span>
+		</div>
 	</div>
 </article>

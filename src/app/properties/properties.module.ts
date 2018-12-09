@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { ScrollDispatchModule } from '@angular/cdk/scrolling'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatInputModule } from '@angular/material/input'
 
 import { ShopComponent } from './shop/shop.component'
 import { HeaderComponent } from './header/header.component'
@@ -24,7 +26,9 @@ import { PropertyComponent } from './property/property.component'
 		CommonModule,
 		PropertiesRoutingModule,
 		FormsModule,
-		ScrollDispatchModule
+		ScrollDispatchModule,
+		MatDatepickerModule,
+		MatInputModule
 	],
 	exports: [
 		HeaderComponent,

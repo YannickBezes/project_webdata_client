@@ -75,6 +75,19 @@
     font-weight: 500;
     border-top: 1px solid #f0f0f0;
 }
+.item_keywords {
+    margin-top: 5px;
+    color: #b3b3b3;
+    font-size: 11px;
+    font-weight: 700;
+}
+.item_keywords i {
+    width: 12px;
+    margin-left: 4px;
+}
+.item_keywords span {
+    font-weight: 500;
+}
 
 .item_city img {
     vertical-align: bottom;

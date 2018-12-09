@@ -1,6 +1,12 @@
 <div class="search_container">
 	<form class="search_form" #searchForm="ngForm">
 		<div class="search">
+			<mat-form-field>
+				<input matInput [matDatepicker]="picker" placeholder="Choose a date">
+				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+				<mat-datepicker touchUi #picker></mat-datepicker>
+			</mat-form-field>
+
 			<input type="text" class="search_input" placeholder="Mot-clé" name="keyword" [(ngModel)]="keyword">
 			<button type="submit" class="search_button" (click)="search()">
 				<i class="fa fa-search"></i>

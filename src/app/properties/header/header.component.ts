@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 	admin: boolean = false
+	connected: boolean = false
 	open: boolean = false
 	constructor() { }
 
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit {
 	is_admin() {
 		let user: Object = JSON.parse(localStorage.getItem('user'))
 		if (user != null) {
+			this.connected = true;
 			return user['role'] === 'admin'
 		}
 		return false
