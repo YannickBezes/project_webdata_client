@@ -24,15 +24,27 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 	onToSearch(keyword: string) {
 		if (keyword) {
 			this.subscriptions.push(this.api.get_properties_by_keyword(keyword).subscribe(res => {
-				if (res["status"] === "success") {
+				if (res["status"] === "success")
 					this.properties = res['data']
-				}
 			}))
 		} else {
 			this.subscriptions.push(this.api.get_properties().subscribe(res => {
-				if (res["status"] === "success") {
-					this.properties = res['data']
-				}
+				if (res["status"] === "success")
+					this.properties = res["data"]
+			}))
+		}
+	}
+
+	onToSearchDate(date: string) {
+		if (date) {
+			this.subscriptions.push(this.api.get_properties_by_date(date).subscribe(res => {
+				if (res["status"] === "success")
+					this.properties = res["data"]
+			}))
+		} else {
+			this.subscriptions.push(this.api.get_properties().subscribe(res => {
+				if (res["status"] === "success")
+					this.properties = res["data"]
 			}))
 		}
 	}

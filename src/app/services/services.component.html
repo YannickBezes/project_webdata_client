@@ -1,5 +1,5 @@
 <app-header></app-header>
-<app-search (toSearch)="onToSearch($event)"></app-search>
+<app-search (toSearch)="onToSearch($event)" (toSearchDate)="onToSearchDate($event)"></app-search>
 
 <app-shop *ngIf="services.length > 0" [items]="services" [display_image]="false"></app-shop>
 <div *ngIf="services.length === 0" class="no-result">
