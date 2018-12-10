@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, BehaviorSubject, Subject } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import config from '../../config'
+import { map } from 'rxjs/operators';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,23 +12,49 @@ export class ApiService {
 	private headers: HttpHeaders = new HttpHeaders()
 	public connected: boolean = false
 
-	constructor(private http: HttpClient) { }
+	private current_user_subject: BehaviorSubject<any>;
+    public current_user: Observable<any>;
+
+	constructor(private http: HttpClient) {
+		this.current_user_subject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')))
+		this.current_user = this.current_user_subject.asObservable()
+		if (this.current_user_value != null) {
+			this.connected = true
+		}
+	}
+
+	public get current_user_value(): Object {
+		return this.current_user_subject.value
+	}
 
 	/**
 	 * Login user and get information of the user
 	 * @param email email of the user
 	 * @param password password of the user
 	 */
-	public async login(email: string, password: string): Promise<any> {
-		const res = await this.http.post(`${config.API_URL}/login`, { email, password }).toPromise();
-		if (res['status'] === 'success') {
-			this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
-			localStorage.setItem('user', JSON.stringify(res['data']['user'])) // Get information of the user
-			return this.connected = true;
-		}
-		return false;
+	public login(email: string, password: string): Observable<any> {
+		return this.http.post(`${config.API_URL}/login`, { email, password }).pipe(map(res => {
+			if (res['status'] === 'success') {
+				this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
+				localStorage.setItem('user', JSON.stringify(res['data']['user'])) // Get information of the user
+				this.current_user_subject.next(res['data']['user'])
+				this.connected = true
+			}
+			return res
+		}))
 	}
 
+	public logout() {
+        // remove user from local storage to log user out
+        localStorage.removeItem('user')
+		this.current_user_subject.next(null)
+		this.connected = false
+	}
+
+	public register(form): Observable<any> {
+		return this.http.post(`${config.API_URL}/register`, { ...form })
+	}
+	
 	// ------------ MEMBERS ------------
 	/**
 	 * Get members

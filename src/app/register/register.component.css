@@ -1,0 +1,13 @@
+div.jumbotron {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.jumbotron label {
+    margin-bottom: 5px;
+}
+div.jumbotron input.form-control {
+    box-shadow: none!important;
+}
