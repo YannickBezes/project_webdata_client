@@ -4,6 +4,9 @@ import { FormsModule } from '@angular/forms'
 import { ScrollDispatchModule } from '@angular/cdk/scrolling'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatInputModule } from '@angular/material/input'
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShopComponent } from './shop/shop.component'
 import { HeaderComponent } from './header/header.component'
@@ -12,6 +15,8 @@ import { ItemComponent } from './item/item.component'
 import { PropertiesRoutingModule } from './properties-routing.module'
 import { PropertiesComponent } from './properties.component'
 import { PropertyComponent } from './property/property.component'
+import { CardComponent } from './card/card.component';
+import { DisponibilityComponent } from './disponibility/disponibility.component'
 
 @NgModule({
 	declarations: [
@@ -20,7 +25,9 @@ import { PropertyComponent } from './property/property.component'
 		ShopComponent,
 		PropertiesComponent,
 		ItemComponent,
-		PropertyComponent
+		PropertyComponent,
+		CardComponent,
+		DisponibilityComponent
 	],
 	imports: [
 		CommonModule,
@@ -28,13 +35,20 @@ import { PropertyComponent } from './property/property.component'
 		FormsModule,
 		ScrollDispatchModule,
 		MatDatepickerModule,
-		MatInputModule
+		MatInputModule,
+		NgbModalModule,
+		CalendarModule.forRoot({
+			provide: DateAdapter,
+			useFactory: adapterFactory
+		})
 	],
 	exports: [
 		HeaderComponent,
 		ShopComponent,
 		SearchComponent,
-		ItemComponent
+		ItemComponent,
+		CardComponent,
+		DisponibilityComponent
 	]
 })
 export class PropertiesModule { }

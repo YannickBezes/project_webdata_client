@@ -1,0 +1,94 @@
+<div class="card">
+	<h2>Disponibilitées : </h2>
+	<div class="calendar">
+
+		<div class="row text-center">
+			<div class="col-md-4">
+				<div class="btn-group">
+					<div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+						Précédent
+					</div>
+					<div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+						Aujourd'hui
+					</div>
+					<div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false">
+						Suivant
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<h3>{{ viewDate | calendarDate:(view + 'ViewTitle') }}</h3>
+			</div>
+			<div class="col-md-4">
+				<div class="btn-group">
+					<div class="btn btn-primary" (click)="view = CalendarView.Month" [class.active]="view === CalendarView.Month">
+						Mois
+					</div>
+					<div class="btn btn-primary" (click)="view = CalendarView.Week" [class.active]="view === CalendarView.Week">
+						Semaine
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="calendar_view" [ngSwitch]="view">
+			<mwl-calendar-month-view 
+				*ngSwitchCase="CalendarView.Month"
+				[viewDate]="viewDate"
+				[events]="events"
+				[activeDayIsOpen]="activeDayIsOpen"
+				[refresh]="refresh"
+				(dayClicked)="clickDay($event.day)"
+				(eventClicked)="handleEvent('selected', $event.event)"
+			></mwl-calendar-month-view>
+			<mwl-calendar-week-view 
+				*ngSwitchCase="CalendarView.Week"
+				[viewDate]="viewDate"
+				[events]="events"
+				[refresh]="refresh"
+				(eventClicked)="handleEvent('selected', $event.event)"
+				[hourSegments]="1"
+			></mwl-calendar-week-view>
+		</div>
+	</div>
+</div>
+
+<ng-template #modalContent let-close="close">
+	<div class="modal-header">
+		<h5 class="modal-title">Selection</h5>
+		<button type="button" class="close" (click)="close()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body" [ngSwitch]="modalData['status']">
+		<p *ngSwitchCase="1">Etes-vous sûr de vouloir selectionner ce jours ?</p>
+		<p *ngSwitchCase="0">Action impossible vous devez être connecté</p>
+	</div>
+	<div class="modal-footer" [ngSwitch]="modalData['status']">
+		<div *ngSwitchCase="1">
+			<button type="button" class="btn btn-outline-primary" (click)="clickedYes()">Oui</button>
+			<button type="button" class="btn btn-outline-secondary" (click)="close()">Non</button>
+		</div>
+		<div *ngSwitchCase="0">
+			<button type="button" class="btn btn-outline-primary" (click)="goToLogin()">Se connecter</button>
+			<button type="button" class="btn btn-outline-secondary" (click)="close()">Fermer</button>
+		</div>
+	</div>
+</ng-template>
+
+
+<ng-template #modalAddUse let-close="close">
+		<div class="modal-header">
+			<h5 class="modal-title">Résultat</h5>
+			<button type="button" class="close" (click)="close()">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body" [ngSwitch]="success">
+			<p *ngSwitchCase="true">Success</p>
+			<p *ngSwitchCase="false">Failed</p>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-outline-secondary" (click)="close()">Fermer</button>
+		</div>
+	</ng-template>

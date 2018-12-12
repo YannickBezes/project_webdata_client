@@ -20,11 +20,15 @@ export class ApiService {
 		this.current_user = this.current_user_subject.asObservable()
 		if (this.current_user_value != null) {
 			this.connected = true
+			this.headers = this.headers.set('X-Auth-Token', this.current_user_subject.value['token'])
 		}
 	}
 
 	public get current_user_value(): Object {
-		return this.current_user_subject.value
+		let user = { ...this.current_user_subject.value }
+		if(user['token'])
+			delete user['token']
+		return user
 	}
 
 	/**
@@ -36,7 +40,7 @@ export class ApiService {
 		return this.http.post(`${config.API_URL}/login`, { email, password }).pipe(map(res => {
 			if (res['status'] === 'success') {
 				this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
-				localStorage.setItem('user', JSON.stringify(res['data']['user'])) // Get information of the user
+				localStorage.setItem('user', JSON.stringify({ ...res['data']['user'], token: res['data']['token'] })) // Get information of the user
 				this.current_user_subject.next(res['data']['user'])
 				this.connected = true
 			}

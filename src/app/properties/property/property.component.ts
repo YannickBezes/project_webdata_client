@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { ApiService } from 'src/app/api.service';
@@ -12,6 +12,9 @@ import { ApiService } from 'src/app/api.service';
 export class PropertyComponent implements OnInit, OnDestroy {
 	subscriptions: Subscription[] = []
 	item: object
+	display_image: boolean = true
+	successAddUse: Subject<boolean> = new Subject<boolean>()
+	
 	constructor(private route: ActivatedRoute, private api: ApiService) { }
 
 	ngOnInit() {
@@ -28,5 +31,18 @@ export class PropertyComponent implements OnInit, OnDestroy {
 		this.subscriptions.forEach(sub => {
 			sub.unsubscribe()
 		});
+	}
+
+	onDisponibilitySelected(date: string) {
+		let user: object = { ...this.api.current_user_value }
+		delete user['password']
+		delete user['role']
+		delete user['_id']
+		this.subscriptions.push(this.api.update_property_uses(this.item['_id'], {
+			user,
+			disponibility: date
+		}).subscribe(res => {
+			this.successAddUse.next(res['status'] === 'success')
+		}))
 	}
 }

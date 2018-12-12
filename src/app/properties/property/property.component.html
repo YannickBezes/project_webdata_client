@@ -1,4 +1,5 @@
 <app-header></app-header>
-<p>
-	property works!
-</p>
+<div class="container">
+	<app-card [item]="item" [display_image]="display_image"></app-card>
+	<app-disponibility [item]="item" (onDateSelected)="onDisponibilitySelected($event)" [successAddUse]="successAddUse"></app-disponibility>
+</div>
