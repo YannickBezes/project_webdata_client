@@ -293,3 +293,26 @@
 .account {
     flex: none;
 }
+
+.menu__navItem__dropdown {
+    display: none;
+    background: #fff;
+}
+.menu__navItem__dropdown li {
+    text-align: left;
+}
+.menu__navItem__dropdown li:not(:last-child) {
+    margin-bottom: 5px;
+}
+.menu__navItem__dropdown li:hover a {
+    color: #68dc57;
+}
+.menu__navItem__dropdown li a {
+    text-decoration: none;
+}
+.account:hover .menu__navItem__dropdown {
+    position: absolute;
+    padding: 20px;
+    display: block;
+    margin-left: -20px;
+}

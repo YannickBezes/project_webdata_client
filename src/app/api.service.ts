@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core'
-import { Observable, BehaviorSubject, Subject } from 'rxjs'
+import { Injectable, OnDestroy } from '@angular/core'
+import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import config from '../../config'
 import { map } from 'rxjs/operators';
@@ -8,11 +8,11 @@ import { FormGroup } from '@angular/forms';
 @Injectable({
 	providedIn: 'root'
 })
-export class ApiService {
+export class ApiService implements OnDestroy {
 	private headers: HttpHeaders = new HttpHeaders()
 	public connected: boolean = false
-
-	private current_user_subject: BehaviorSubject<any>;
+	private subscriptions: Subscription[] = []
+	public current_user_subject: BehaviorSubject<any>;
     public current_user: Observable<any>;
 
 	constructor(private http: HttpClient) {
@@ -22,6 +22,10 @@ export class ApiService {
 			this.connected = true
 			this.headers = this.headers.set('X-Auth-Token', this.current_user_subject.value['token'])
 		}
+
+		this.subscriptions.push(this.current_user_subject.subscribe(data => {
+			localStorage.setItem('user', JSON.stringify(data))
+		}))
 	}
 
 	public get current_user_value(): Object {
@@ -29,6 +33,12 @@ export class ApiService {
 		if(user['token'])
 			delete user['token']
 		return user
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => {
+			sub.unsubscribe()
+		});
 	}
 
 	/**

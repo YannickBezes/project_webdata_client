@@ -21,6 +21,11 @@
 			</li>
 			<li class="menubar__navItem account" *ngIf="is_connected()">
 				<a routerLink="/account" routerLinkActive="menubar__navItem--active" class="menubar__navLink">Mon Compte</a>
+				<ul class="menu__navItem__dropdown">
+					<li><a href="/account">Informations</a></li>
+					<li><a href="/account/services">Listes des services</a></li>
+					<li><a href="/account/properties">Listes des biens</a></li>
+				</ul>
 			</li>
 			<li class="menubar__navItem" *ngIf="is_connected()">
 				<a (click)="logout()" class="menubar__navLink">Déconnexion</a>
