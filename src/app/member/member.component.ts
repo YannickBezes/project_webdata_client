@@ -44,8 +44,6 @@ export class MemberComponent implements OnInit {
 				if (res['status'] == "success") {
 					this.message = { type: 'success', text: 'Modification réussi' }
 					this.api.current_user_subject.next({ ...res['data']['user'], token: res['data']['token'] })
-					
-					console.log(res['data'])
 				} else
 					this.message = { type: 'error', text: res['message'] }
 			})

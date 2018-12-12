@@ -2,7 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core'
 import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import config from '../../config'
-import { map } from 'rxjs/operators';
+import { map, first } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 
 @Injectable({
@@ -18,13 +18,14 @@ export class ApiService implements OnDestroy {
 	constructor(private http: HttpClient) {
 		this.current_user_subject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')))
 		this.current_user = this.current_user_subject.asObservable()
-		if (this.current_user_value != null) {
+		if (this.current_user_subject.value['token']) {
 			this.connected = true
 			this.headers = this.headers.set('X-Auth-Token', this.current_user_subject.value['token'])
 		}
 
 		this.subscriptions.push(this.current_user_subject.subscribe(data => {
-			localStorage.setItem('user', JSON.stringify(data))
+			if(data != null)
+				localStorage.setItem('user', JSON.stringify(data))
 		}))
 	}
 
@@ -51,7 +52,7 @@ export class ApiService implements OnDestroy {
 			if (res['status'] === 'success') {
 				this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
 				localStorage.setItem('user', JSON.stringify({ ...res['data']['user'], token: res['data']['token'] })) // Get information of the user
-				this.current_user_subject.next(res['data']['user'])
+				this.current_user_subject.next({ ...res['data']['user'], token: res['data']['token'] })
 				this.connected = true
 			}
 			return res
@@ -60,7 +61,7 @@ export class ApiService implements OnDestroy {
 
 	public logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('user')
+		localStorage.removeItem('user')
 		this.current_user_subject.next(null)
 		this.connected = false
 	}
@@ -70,6 +71,14 @@ export class ApiService implements OnDestroy {
 	}
 	
 	// ------------ MEMBERS ------------
+	public is_admin(): Observable<any> {
+		return this.http.get(`${config.API_URL}/admin/${this.current_user_value['_id']}`, { headers: this.headers }).pipe(map(res => {
+			if (res['status'] === 'success')
+				return res['data']
+			return false
+		}))
+	}
+	
 	/**
 	 * Get members
 	 */
