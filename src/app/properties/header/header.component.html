@@ -19,6 +19,9 @@
 			<li class="menubar__navItem" *ngIf="!is_connected()">
 				<a routerLink="/login" class="menubar__navLink">Connexion</a>
 			</li>
+			<li class="menubar__navItem account" *ngIf="is_connected()">
+				<a routerLink="/account" routerLinkActive="menubar__navItem--active" class="menubar__navLink">Mon Compte</a>
+			</li>
 			<li class="menubar__navItem" *ngIf="is_connected()">
 				<a (click)="logout()" class="menubar__navLink">Déconnexion</a>
 			</li>
@@ -36,8 +39,11 @@
 </div>
 <div id="menubar__mobileNavDropdown" class="menubar__mobileNavDropdown" [ngClass]="{'active': open}">
 	<ul class="menubar__navListMobile">
-			<li class="menubar__navItem" *ngIf="admin"><a class="menubar__navLink">Admin</a></li>
-			<li class="menubar__navItem"><a routerLink="/properties" routerLinkActive="mobile-active" class="menubar__navLink">Biens</a></li>
-			<li class="menubar__navItem"><a routerLink="/services" routerLinkActive="mobile-active" class="menubar__navLink">Services</a></li>
- 	</ul>
+		<li class="menubar__navItem" *ngIf="admin"><a class="menubar__navLink">Admin</a></li>
+		<li class="menubar__navItem"><a routerLink="/properties" routerLinkActive="mobile-active" class="menubar__navLink">Biens</a></li>
+		<li class="menubar__navItem"><a routerLink="/services" routerLinkActive="mobile-active" class="menubar__navLink">Services</a></li>
+		<li class="menubar__navItem" *ngIf="!is_connected()"><a routerLink="/login" class="menubar__navLink">Connexion</a></li>
+		<li class="menubar__navItem account" *ngIf="is_connected()"><a routerLink="/account" routerLinkActive="mobile-active" class="menubar__navLink">Mon Compte</a></li>
+		<li class="menubar__navItem" *ngIf="is_connected()"><a (click)="logout()" class="menubar__navLink">Déconnexion</a></li>
+	</ul>
 </div>

@@ -290,3 +290,6 @@
     height: 2px;
     background-color: #68dc57;
 }
+.account {
+    flex: none;
+}

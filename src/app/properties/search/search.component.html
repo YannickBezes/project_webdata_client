@@ -6,11 +6,12 @@
 				<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 				<mat-datepicker touchUi #picker></mat-datepicker>
 			</mat-form-field>
-
-			<input type="text" class="search_input" placeholder="Mot-clé" name="keyword" [(ngModel)]="keyword">
-			<button type="submit" class="search_button" (click)="search()">
-				<i class="fa fa-search"></i>
-			</button>
+			<div class="search_keyword">
+				<input type="text" class="search_input" placeholder="Mot-clé" name="keyword" [(ngModel)]="keyword">
+				<button type="submit" class="search_button" (click)="search()">
+					<i class="fa fa-search"></i>
+				</button>
+			</div>
 		</div>
 	</form>
 </div>
