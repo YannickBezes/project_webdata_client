@@ -1,2 +1,5 @@
 <app-header></app-header>
-<p>service works</p>
+<div class="container">
+	<app-card [item]="item"></app-card>
+	<app-disponibility [item]="item" (onDateSelected)="onDisponibilitySelected($event)" [successAddUse]="successAddUse"></app-disponibility>
+</div>

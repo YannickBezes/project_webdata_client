@@ -26,13 +26,6 @@ export class PropertyComponent implements OnInit, OnDestroy {
 			}))
 		}))
 	}
-
-	ngOnDestroy() {
-		this.subscriptions.forEach(sub => {
-			sub.unsubscribe()
-		});
-	}
-
 	onDisponibilitySelected(date: string) {
 		let user: object = { ...this.api.current_user_value }
 		delete user['password']
@@ -44,5 +37,11 @@ export class PropertyComponent implements OnInit, OnDestroy {
 		}).subscribe(res => {
 			this.successAddUse.next(res['status'] === 'success')
 		}))
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => {
+			sub.unsubscribe()
+		});
 	}
 }
