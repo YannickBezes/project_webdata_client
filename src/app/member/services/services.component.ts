@@ -24,7 +24,6 @@ export class ServicesComponent implements OnInit {
 
 	ngOnInit() {
 		this.api.get_services_by_email(this.api.current_user_value['email']).subscribe(res => {
-			console.log(res)
 			if (res['status'] === 'success')
 				this.services = res['data']
 		})
