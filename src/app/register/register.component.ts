@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
 	constructor(private formBuilder: FormBuilder, private router: Router, private api: ApiService) {
 		// redirect to home if already logged in
-		if (this.api.current_user_value) {
+		if (this.api.current_user_subject.value != null) {
 			this.router.navigate(['/']);
 		}
 	}

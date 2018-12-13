@@ -18,7 +18,7 @@ export class ApiService implements OnDestroy {
 	constructor(private http: HttpClient) {
 		this.current_user_subject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')))
 		this.current_user = this.current_user_subject.asObservable()
-		if (this.current_user_subject.value['token']) {
+		if (this.current_user_subject.value != null) {
 			this.connected = true
 			this.headers = this.headers.set('X-Auth-Token', this.current_user_subject.value['token'])
 		}

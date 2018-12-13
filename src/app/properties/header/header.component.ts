@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
 
 	logout() {
 		this.api.logout()
+		this.admin = false
 		this.router.navigate(['/'])
 	}
 
