@@ -1,0 +1,75 @@
+<app-header></app-header>
+<div class="container">
+	<div class="row form">
+		<div class="col-sm-6 offset-sm-3" *ngIf="display_property">
+			<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+			<form [formGroup]="registerForm" (ngSubmit)="update()">
+				<div class="form-group">
+					<label for="name">Titre du bien :</label>
+					<input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.name.errors }" />
+					<div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+						<div *ngIf="form.name.errors.required">Titre est requis</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="description">Description :</label>
+					<input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
+					<div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+						<div *ngIf="form.description.errors.required">Description est requise</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="url_image">Url de l'image :</label>
+					<input type="text" formControlName="url_image" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.url_image.errors }" />
+				</div>
+				<div class="form-group">
+					<label for="keywords">Mots clé :</label>
+					<input type="text" formControlName="keywords" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.keywords.errors }" />
+				</div>
+				<div class="form-group">
+					<label for="price">Prix acheté :</label>
+					<input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.price.errors }" />
+					<div *ngIf="submitted && form.price.errors" class="invalid-feedback">
+						<div *ngIf="form.price.errors.required">Prix acheté est requis</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<button [disabled]="loading" class="btn btn-primary">Modifier</button>
+					<img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- <app-disponibility [item]="item" [edit]="true"></app-disponibility> -->
+	<div class="disponibilities card">
+		<h3>
+			Modifier les disponibilitées :
+			<button class="btn btn-primary pull-right" (click)="addEvent()">
+				Ajouter
+			</button>
+			<div class="clearfix"></div>
+		</h3>
+
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th width="80%">Date</th>
+					<th>Enlever</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let disponibility of disponibilities; let index = index">
+					<td>
+						<input class="form-control" type="text" mwlFlatpickr [(ngModel)]="disponibility.date" [altInput]="true"
+						 [convertModelValue]="true" [enableTime]="true" dateFormat="d/m/Y H:i" altFormat="d/m/Y H:i" placeholder="Not set">
+					</td>
+					<td>
+						<button class="btn btn-danger" (click)="disponibilities.splice(index, 1)">
+							Supprimer
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>

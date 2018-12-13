@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
 })
 export class DisponibilityComponent implements OnInit, OnChanges {
 	@Input() item: object = {}
+	@Input() edit: boolean = false
 
 	@ViewChild('modalContent')
 	modalContent: TemplateRef<any>;
@@ -42,19 +43,21 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 	constructor(private api: ApiService, private modal: NgbModal, private router: Router) {	}
 
 	ngOnInit() {
-		this.successAddUse.subscribe(res => {
-			this.success = res
-			this.modal.open(this.modalAddUse)
-			// Update events
-			this.activeDayIsOpen = false
-			let newEvents = []
-			this.events.forEach(event => {
-				if (event.id.toString() != this.selectedDate)
-					newEvents.push(event)
+		if (!this.edit) {
+			this.successAddUse.subscribe(res => {
+				this.success = res
+				this.modal.open(this.modalAddUse)
+				// Update events
+				this.activeDayIsOpen = false
+				let newEvents = []
+				this.events.forEach(event => {
+					if (event.id.toString() != this.selectedDate)
+						newEvents.push(event)
+				})
+				this.events = newEvents
+				this.refresh.next()
 			})
-			this.events = newEvents
-			this.refresh.next()
-		})
+		}
 	}
 
 	ngOnChanges() {
@@ -71,7 +74,8 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 						secondary: '#e94a77'
 					},
 					actions: this.actions,
-					id: date
+					id: date,
+					draggable: this.edit
 				})
 			})
 		}

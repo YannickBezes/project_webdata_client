@@ -15,7 +15,7 @@ export class MemberComponent implements OnInit {
 	submitted = false
 	message: object
 
-	constructor(private formBuilder: FormBuilder, private router: Router, private api: ApiService) { }
+	constructor(private formBuilder: FormBuilder, private api: ApiService) { }
 
 	ngOnInit() {
 		this.registerForm = this.formBuilder.group({

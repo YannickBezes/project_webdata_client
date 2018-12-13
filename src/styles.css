@@ -1,6 +1,8 @@
 @import "assets/css/css_reset.css";
 @import "assets/css/loading.css";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "../node_modules/flatpickr/dist/flatpickr.css";
+
 
 * {
     outline: none!important;
