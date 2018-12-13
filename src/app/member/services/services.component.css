@@ -1,0 +1,41 @@
+.add_service {
+    margin-top: 20px;
+}
+
+.update_service {
+    margin-top: 40px;
+}
+.update_service h2 {
+    font-size: 125%;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.app-item {
+    margin: 10px 0;
+    width: 100%;
+}
+.app-item .edit,
+.app-item .remove {
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+.app-item .edit {
+    left: -25px;
+    top: 21px;
+    font-size: 13px;
+}
+
+.app-item .remove {
+    top: 20px;
+    left: 10px
+}
+
+.form {
+    margin-top: 15px;
+}
+
+.disponibilities .table.table-bordered {
+    margin-top: 10px;
+}

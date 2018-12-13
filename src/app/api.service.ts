@@ -241,7 +241,7 @@ export class ApiService implements OnDestroy {
 	 * @param email email of a member
 	 */
 	public get_services_by_email(email: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/services/owner/${email}`)
+		return this.http.get(`${config.API_URL}/services/owner/${email}`, { headers: this.headers })
 	}
 
 	/**

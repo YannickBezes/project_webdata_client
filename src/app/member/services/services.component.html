@@ -1,4 +1,89 @@
 <app-header></app-header>
-<p>
-  services works!
-</p>
+<div class="container">
+	<div class="add_service">
+		<button class="btn btn-block btn-success" (click)="display_form=true" *ngIf="!display_form">Ajouter un nouveau service</button>
+		<button class="btn btn-block btn-success" (click)="display_form=false" *ngIf="display_form">Editer les services existant</button>
+		<div class="row form" *ngIf="display_form">
+			<div class="col-sm-6 offset-sm-3">
+				<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+				<form [formGroup]="registerForm" (ngSubmit)="add()">
+					<div class="form-group">
+						<label for="name">Titre du service :</label>
+						<input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.name.errors }" />
+						<div *ngIf="submitted && form.name.errors" class="invalid-feedback">
+							<div *ngIf="form.name.errors.required">Titre est requis</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="description">Description :</label>
+						<input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.description.errors }" />
+						<div *ngIf="submitted && form.description.errors" class="invalid-feedback">
+							<div *ngIf="form.description.errors.required">Description est requise</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="keywords">Mots clé :</label>
+						<input type="text" formControlName="keywords" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.keywords.errors }" />
+					</div>
+					<div class="form-group">
+						<button [disabled]="loading" class="btn btn-primary">Ajouter</button>
+						<img *ngIf="loading" class="pl-3" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="disponibilities card" *ngIf="display_form">
+			<h3>
+				Ajouter des disponibilitées : 
+				<button class="btn btn-primary pull-right" (click)="addEvent()">
+					Ajouter
+				</button>
+				<div class="clearfix"></div>
+			</h3>
+
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th width="80%">Date</th>
+						<th>Enlever</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let disponibility of disponibilities; let index = index">
+						<td>
+							<input
+								class="form-control"
+								type="text"
+								mwlFlatpickr
+								[(ngModel)]="disponibility.date"
+								[altInput]="true"
+								[convertModelValue]="true"
+								[enableTime]="true"
+								dateFormat="d/m/Y H:i"
+								altFormat="d/m/Y H:i"
+								placeholder="Not set"
+							>
+						</td>
+						<td>
+							<button class="btn btn-danger" (click)="disponibilities.splice(index, 1)">
+								Supprimer
+							</button>
+						</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+
+	<div class="update_service" *ngIf="!display_form">
+		<h2>Modifier vos services : </h2>
+		<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+		<div *ngFor="let item of services" class="app-item">
+			<i class="fa fa-fw fa-pencil edit" (click)="edit(item['_id'])"></i>
+			<i class="fa fa-fw fa-close remove" (click)="remove(item['_id'])"></i>
+			<app-item [item]="item"></app-item>
+		</div>
+	</div>
+</div>

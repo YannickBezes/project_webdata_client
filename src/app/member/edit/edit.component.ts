@@ -15,7 +15,7 @@ export class EditComponent implements OnInit {
 	category: string
 	events: CalendarEvent[] = []
 	display_property: boolean = false
-	displa_service: boolean = false
+	display_service: boolean = false
 	message: object
 	loading = false
 	submitted = false
@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
 							keywords: [this.item['keywords'].join(',')],
 						})
 						this.parse_disponibilities()
-						this.displa_service = true
+						this.display_service = true
 					}
 				})
 			}
