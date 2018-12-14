@@ -98,8 +98,8 @@ export class ApiService implements OnDestroy {
 	 * Get ratio of the member
 	 * @param _id id of the member
 	 */
-	public get_member_ration(_id: string): Observable<any> {
-		return this.http.get(`${config.API_URL}/member/ration/${_id}`, { headers: this.headers })
+	public get_member_ratio(_id: string): Observable<any> {
+		return this.http.get(`${config.API_URL}/member/ratio/${_id}`, { headers: this.headers })
 	}
 
 	/**
