@@ -1,0 +1,19 @@
+<p *ngIf="ratio['ratio'] < 0.5 && ratio['ratio'] > 0" class="bad_ratio">
+	{{member['firstname']}} {{member['lastname']}}
+	<span class="ratio">{{ratio['ratio']}}</span>
+</p>
+
+<p *ngIf="ratio['ratio'] >= 0.5 && ratio['ratio'] < 1" class="medium_ratio">
+	{{member['firstname']}} {{member['lastname']}}
+	<span class="ratio">{{ratio['ratio']}}</span>
+</p>
+
+<p *ngIf="ratio['ratio'] >= 1" class="good_ratio">
+	{{member['firstname']}} {{member['lastname']}}
+	<span class="ratio">{{ratio['ratio']}}</span>
+</p>
+
+<p *ngIf="ratio['ratio'] == 0" class="no_ratio">
+	{{member['firstname']}} {{member['lastname']}}
+	<span class="ratio">{{ratio['ratio']}}</span>
+</p>

@@ -1,0 +1,35 @@
+.navbarre{
+	flex: 20%;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	background-color: rgb(30, 127, 203);
+}
+
+.navitem{
+	width: 100%
+}
+
+.navitem p {
+	align-self: flex-start;
+	border: 0;
+}
+
+.item_title{
+	color: white;
+	text-decoration: underline;
+	font-size: 10;
+}
+
+.item_link{
+	color: white;
+}
+
+li{
+	margin: 5% 0;
+}
+
+.links{
+	padding-left: 15%;
+}

@@ -3,14 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
-import { PropertiesModule } from '../properties/properties.module';
+import { NavbarComponent } from './navbar/navbar.component';
+import { DisplayMemberComponent } from './display-member/display-member.component';
+
+import { ScrollDispatchModule } from '@angular/cdk/scrolling'
 
 @NgModule({
-	declarations: [AdminComponent],
+	declarations: [
+		AdminComponent,
+		NavbarComponent,
+		DisplayMemberComponent
+	],
 	imports: [
 		CommonModule,
 		AdminRoutingModule,
-		PropertiesModule
+		ScrollDispatchModule
 	]
 })
 export class AdminModule { }

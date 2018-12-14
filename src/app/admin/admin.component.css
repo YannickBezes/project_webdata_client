@@ -1,0 +1,25 @@
+.row{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0;
+}
+
+.admin_navbar{
+	padding: 0;
+	height: 100vh;
+}
+
+.main_view{
+	display: flex;
+}
+
+.members_list{
+	height: 90vh;
+	width: 100%;
+	align-self: flex-end;
+}
+
+.member_list_item{
+	margin-top: 2%;
+	margin-bottom: 2%;
+}

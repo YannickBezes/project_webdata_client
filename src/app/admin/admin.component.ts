@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ApiService } from '../api.service';
+
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+	selector: 'app-admin',
+	templateUrl: './admin.component.html',
+	styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit{
+	private subscriptions: Subscription[] = []
+	members: object[] = []
 
-  constructor() { }
+	constructor(private api: ApiService) { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+		this.subscriptions.push(this.api.get_members().subscribe(res => {
+			if (res["status"] === "success") {
+				this.members = res['data']
+			}
+		}))
+	}
 
 }
