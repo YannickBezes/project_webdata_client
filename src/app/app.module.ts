@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { MemberModule } from './member/member.module'
+import { AdminModule } from './admin/admin.module';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -32,7 +33,8 @@ registerLocaleData(localeFr, 'fr');
 		BrowserAnimationsModule,
 		MatNativeDateModule,
 		ReactiveFormsModule,
-		MemberModule
+		MemberModule,
+		AdminModule
 	],
 	providers: [
 		{ provide: LOCALE_ID, useValue: 'fr'}

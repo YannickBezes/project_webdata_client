@@ -7,6 +7,7 @@ import { AuthGuard } from './auth.guard';
 const routes: Routes = [
 	{ path: 'properties', loadChildren: './properties/properties.module#PropertiesModule' },
 	{ path: 'services', loadChildren: './services/services.module#ServicesModule' },
+	{ path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'account', canActivate: [AuthGuard], loadChildren: './member/member.module#MemberModule'},

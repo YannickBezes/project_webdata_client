@@ -8,7 +8,7 @@
 	<nav class="menubar__navWrapper">
 		<ul class="menubar__navList">
 			<li class="menubar__navItem" *ngIf="admin">
-				<a class="menubar__navLink">Admin</a>
+				<a routerLink="/admin" routerLinkActive="menubar__navItem--active" class="menubar__navLink">Admin</a>
 			</li>
 			<li class="menubar__navItem">
 				<a routerLink="/properties" routerLinkActive="menubar__navItem--active" class="menubar__navLink">Biens</a>
