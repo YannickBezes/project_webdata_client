@@ -1,0 +1,48 @@
+<div class="row">
+	<app-navbar class="col-3 admin_navbar"></app-navbar>
+	<div class="col main_view">
+		<h1>Liste des services</h1>
+		<cdk-virtual-scroll-viewport itemSize="50" class="services_list">
+			<ul>
+				<li class="service_list_header">
+					<div class="row">
+						<div class="col-3">
+							Nom
+						</div>
+						<div class="col-2">
+							Prix
+						</div>
+						<div class="col-3">
+							Propriétaire
+						</div>
+						<div class="col-3">
+							Mot-clés
+						</div>
+					</div>
+				</li>
+
+				<li *ngFor="let m of services" class="service">
+					<div class="row">
+						<div class="col-3">
+							{{m['name']}}
+						</div>
+						<div class="col-2">
+							{{m['price']}}
+						</div>
+						<div class="col-3">
+							{{m['owner']['lastname']}} {{m['owner']['firstname']}}
+						</div>
+						<div class="col-3">
+							<span *ngFor="let k of m['keywords']">
+								{{k}} 
+							</span>
+						</div>
+						<div class="col-1" (click)="delete_service(m['_id'])">
+							<i class="fas fa-trash-alt"></i>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</cdk-virtual-scroll-viewport>
+	</div>
+</div>

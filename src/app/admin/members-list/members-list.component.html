@@ -1,0 +1,46 @@
+<div class="row">
+	<app-navbar class="col-3 admin_navbar"></app-navbar>
+	<div class="col main_view">
+		<h1>Liste des utilisateurs</h1>
+		<cdk-virtual-scroll-viewport itemSize="50" class="members_list">
+			<ul>
+				<li class="member_list_header">
+					<div class="row">
+						<div class="col-2">
+							Nom
+						</div>
+						<div class="col-2">
+							Prénom
+						</div>
+						<div class="col-4">
+							Adresse mail
+						</div>
+						<div class="col-3">
+							Ville
+						</div>
+					</div>
+				</li>
+
+				<li *ngFor="let m of members" class="member">
+					<div class="row">
+						<div class="col-2">
+							{{m['lastname']}}
+						</div>
+						<div class="col-2">
+							{{m['firstname']}}
+						</div>
+						<div class="col-4">
+							{{m['email']}}
+						</div>
+						<div class="col-3">
+							{{m['city']}}
+						</div>
+						<div class="col-1" (click)="delete_user(m['_id'])">
+							<i class="fas fa-trash-alt"></i>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</cdk-virtual-scroll-viewport>
+	</div>
+</div>

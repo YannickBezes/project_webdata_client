@@ -6,12 +6,18 @@ import { AdminRoutingModule } from './admin-routing.module'
 import { AdminComponent } from './admin.component'
 import { NavbarComponent } from './navbar/navbar.component'
 import { DisplayMemberComponent } from './display-member/display-member.component'
+import { MembersListComponent } from './members-list/members-list.component'
+import { PropertiesListComponent } from './properties-list/properties-list.component'
+import { ServicesListComponent } from './services-list/services-list.component'
 
 @NgModule({
 	declarations: [
 		AdminComponent,
 		NavbarComponent,
-		DisplayMemberComponent
+		DisplayMemberComponent,
+		MembersListComponent,
+		PropertiesListComponent,
+		ServicesListComponent
 	],
 	imports: [
 		CommonModule,

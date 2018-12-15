@@ -8,10 +8,10 @@
 	    <div class="links">
 	    	<ul>
 	    		<li>
-	    			<a href="#" class="item_link">Gestion des déséquilibres</a>
+	    			<a routerLink="/admin" class="item_link">Gestion des déséquilibres</a>
 	    		</li>
 	    		<li>
-	    			<a href="#" class="item_link">Liste des utilisateurs</a>
+	    			<a routerLink="members-list" class="item_link">Liste des utilisateurs</a>
 	    		</li>
 	    	</ul>
     	</div>
@@ -26,7 +26,7 @@
 	    <div class="links">
       		<ul>
 	    		<li>
-	    			<a href="#" class="item_link">Liste des biens</a>
+	    			<a routerLink="/admin/properties-list" class="item_link">Liste des biens</a>
 	    		</li>
 	    	</ul>
     	</div>
@@ -41,10 +41,16 @@
 	    <div class="links">
       		<ul>
 	    		<li>
-	    			<a href="#" class="item_link">Liste des services</a>
+	    			<a routerLink="/admin/services-list" class="item_link">Liste des services</a>
 	    		</li>
 	    	</ul>
     	</div>
   	</div>
   	
+
+    <nav class="navbar navitem">
+      <p routerLink="" class="navbar-toggler item_title" data-toggle="collapse" data-target="#navbarToggleServices" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+          Retour accueil
+      </p>
+    </nav>
 </div>
