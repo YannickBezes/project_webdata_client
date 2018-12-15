@@ -63,9 +63,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
 				if (res['status'] == "success") {
 					this.message = { type: 'success', text: 'Ajout réussi' }
 					this.services.push(res['data'])
-					setTimeout(() => {
-						this.message = null
-					}, 1500)
+					setTimeout(() => this.message = null, 1500) // Clear message
 				} else
 					this.message = { type: 'error', text: res['message'] }
 			}))
@@ -94,10 +92,7 @@ export class ServicesComponent implements OnInit, OnDestroy {
 						new_services.push(el)
 				})
 				this.services = new_services
-				// Delete message after 1.5s
-				setTimeout(() => {
-					this.message = null
-				}, 1500)
+				setTimeout(() => this.message = null, 1500) // Clear message
 			}
 		}))
 	}

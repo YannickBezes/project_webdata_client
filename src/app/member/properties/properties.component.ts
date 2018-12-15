@@ -65,9 +65,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 				if (res['status'] == "success") {
 					this.message = { type: 'success', text: 'Ajout réussi' }
 					this.properties.push(res['data'])
-					setTimeout(() => {
-						this.message = null
-					}, 1500)
+					setTimeout(() => this.message = null, 1500) // Clear message
 				} else
 					this.message = { type: 'error', text: res['message'] }
 			}))
@@ -97,9 +95,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 				})
 				this.properties = new_properties
 				// Delete message after 1.5s
-				setTimeout(() => {
-					this.message = null
-				}, 1500)
+				setTimeout(() => this.message = null, 1500) // Clear message
 			}
 		}))
 	}

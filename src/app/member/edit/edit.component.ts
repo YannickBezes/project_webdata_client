@@ -114,9 +114,7 @@ export class EditComponent implements OnInit, OnDestroy {
 					this.loading = false
 					if (res['status'] == "success") {
 						this.message = { type: 'success', text: 'Modification réussi' }
-						setTimeout(() => {
-							this.message = null
-						}, 1500)
+						setTimeout(() => this.message = null, 1500) // Clear message
 						this.item = res['data']
 						this.sucessUpdate.next()
 					} else
@@ -128,9 +126,7 @@ export class EditComponent implements OnInit, OnDestroy {
 					this.loading = false
 					if (res['status'] == "success") {
 						this.message = { type: 'success', text: 'Modification réussi' }
-						setTimeout(() => {
-							this.message = null
-						}, 1500)
+						setTimeout(() => this.message = null, 1500) // Clear message
 						this.item = res['data']
 						this.sucessUpdate.next()
 					} else

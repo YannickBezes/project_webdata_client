@@ -48,9 +48,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 				this.loading = false
 				if (res['status'] == "success") {
 					this.message = { type: 'success', text: 'Inscription réussi' }
-					setTimeout(() => {
-						this.router.navigate(['/login'])
-					}, 2000)
+					setTimeout(() => this.message = null, 1500) // Clear message
 				} else
 					this.message = { type: 'error', text: res['message'] }
 			}))
