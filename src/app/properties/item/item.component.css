@@ -88,7 +88,7 @@
 	font-weight: 700;
 }
 
-.item_keywords i {
+.item_keywords .fa-tag {
 	width: 12px;
 	margin-left: 4px;
 }

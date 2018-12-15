@@ -25,14 +25,14 @@
 }
 
 .app-item .edit {
-    left: -25px;
+    left: -30px;
     top: 21px;
     font-size: 13px;
 }
 
 .app-item .remove {
     top: 20px;
-    left: 10px
+    left: 5px
 }
 
 .form {

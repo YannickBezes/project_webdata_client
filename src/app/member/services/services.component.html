@@ -81,8 +81,8 @@
 		<h2>Modifier vos services : </h2>
 		<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
 		<div *ngFor="let item of services" class="app-item">
-			<i class="fa fa-fw fa-pencil edit" (click)="edit(item['_id'])"></i>
-			<i class="fa fa-fw fa-close remove" (click)="remove(item['_id'])"></i>
+			<i class="fas fa-pencil-alt edit" (click)="edit(item['_id'])"></i>
+			<i class="fas fa-times remove" (click)="remove(item['_id'])"></i>
 			<app-item [item]="item"></app-item>
 		</div>
 	</div>
