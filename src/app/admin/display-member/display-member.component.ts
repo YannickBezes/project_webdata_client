@@ -1,26 +1,30 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ApiService } from '../../api.service';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { ApiService } from '../../api.service'
 
 @Component({
-  selector: 'app-display-member',
-  templateUrl: './display-member.component.html',
-  styleUrls: ['./display-member.component.css']
+	selector: 'app-display-member',
+	templateUrl: './display-member.component.html',
+	styleUrls: ['./display-member.component.css']
 })
-export class DisplayMemberComponent implements OnInit {
-	@Input() member: Object
+export class DisplayMemberComponent implements OnInit, OnDestroy {
+	@Input() member: object
 
-	private subscriptions: Subscription[] = []
-	ratio : Object = {ratio:0}
+	subscriptions: Subscription[] = []
+	ratio: object = { ratio: 0 }
 
-  	constructor(private api: ApiService) { }
+	constructor(private api: ApiService) { }
 
- 	ngOnInit() {
- 		this.subscriptions.push(this.api.get_member_ratio(this.member['_id']).subscribe(res => {
+	ngOnInit() {
+		this.subscriptions.push(this.api.get_member_ratio(this.member['_id']).subscribe(res => {
 			if (res["status"] === "success") {
 				this.ratio = res['data']
 			}
 		}))
-  	}
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => sub.unsubscribe())
+	}
 
 }

@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/api.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CalendarEvent } from 'calendar-utils';
-import { Subject } from 'rxjs';
-import { CalendarEventTimesChangedEvent } from 'angular-calendar';
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { ApiService } from 'src/app/api.service'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { CalendarEvent } from 'calendar-utils'
+import { Subject, Subscription } from 'rxjs'
 
 @Component({
 	selector: 'app-edit',
 	templateUrl: './edit.component.html',
 	styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
+	subscriptions: Subscription[] = []
 	item: object
-	registerForm: FormGroup;
+	registerForm: FormGroup
 	category: string
 	events: CalendarEvent[] = []
 	display_property: boolean = false
@@ -27,13 +27,13 @@ export class EditComponent implements OnInit {
 	constructor(private api: ApiService, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
 	// convenience getter for easy access to form fields
-	get form() { return this.registerForm.controls; }
+	get form() { return this.registerForm.controls }
 
 	ngOnInit() {
-		this.route.params.subscribe(data => {
+		this.subscriptions.push(this.route.params.subscribe(data => {
 			this.category = data['category']
 			if (data['category'] === 'property') {
-				this.api.get_property(data['_id']).subscribe(res => {
+				this.subscriptions.push(this.api.get_property(data['_id']).subscribe(res => {
 					if (res['status'] === 'success') {
 						this.item = res['data']
 						this.registerForm = this.formBuilder.group({
@@ -46,9 +46,9 @@ export class EditComponent implements OnInit {
 						this.parse_disponibilities()
 						this.display_property = true
 					}
-				})
+				}))
 			} else {
-				this.api.get_service(data['_id']).subscribe(res => {
+				this.subscriptions.push(this.api.get_service(data['_id']).subscribe(res => {
 					if (res['status'] === 'success') {
 						this.item = res['data']
 						this.registerForm = this.formBuilder.group({
@@ -59,13 +59,13 @@ export class EditComponent implements OnInit {
 						this.parse_disponibilities()
 						this.display_service = true
 					}
-				})
+				}))
 			}
-		})
+		}))
 
-		this.sucessUpdate.subscribe(data => {
+		this.subscriptions.push(this.sucessUpdate.subscribe(data => {
 			this.parse_disponibilities() // to refresh date
-		})
+		}))
 	}
 
 	parse_disponibilities() {
@@ -75,17 +75,17 @@ export class EditComponent implements OnInit {
 			this.item['uses'].forEach(use => {
 				if (use['disponibility'] === el)
 					exist = true
-			});
+			})
 			if (!exist) {
 				this.disponibilities.push({
 					date: new Date(el.split(' ')[0] + ' ' + (el.split(' ')[1] === 'AM' ? "00:00" : "12:00"))
 				})
 			}
-		});
+		})
 	}
 
 	update() {
-		this.submitted = true;
+		this.submitted = true
 		if (this.registerForm.valid && this.disponibilities.length > 0) {
 			let item: object = { ...this.registerForm.value }
 
@@ -107,16 +107,16 @@ export class EditComponent implements OnInit {
 				item['disponibilities'].push(`${date.split(', ')[0]} ${date.split(' ')[2]}`)
 			})
 
-			this.loading = true;
+			this.loading = true
 			item['_id'] = this.item['_id']
 			if (this.category === 'property') {
 				this.api.update_property(item).subscribe(res => {
-					this.loading = false;
+					this.loading = false
 					if (res['status'] == "success") {
 						this.message = { type: 'success', text: 'Modification réussi' }
 						setTimeout(() => {
 							this.message = null
-						}, 1500);
+						}, 1500)
 						this.item = res['data']
 						this.sucessUpdate.next()
 					} else
@@ -124,18 +124,18 @@ export class EditComponent implements OnInit {
 				})
 			} else {
 				console.log(item)
-				this.api.update_service(item).subscribe(res => {
+				this.subscriptions.push(this.api.update_service(item).subscribe(res => {
 					this.loading = false
 					if (res['status'] == "success") {
 						this.message = { type: 'success', text: 'Modification réussi' }
 						setTimeout(() => {
 							this.message = null
-						}, 1500);
+						}, 1500)
 						this.item = res['data']
 						this.sucessUpdate.next()
 					} else
 						this.message = { type: 'error', text: res['message'] }
-				})
+				}))
 			}
 		}
 	}
@@ -167,5 +167,9 @@ export class EditComponent implements OnInit {
 	remove(index: number) {
 		this.disponibilities.splice(index, 1)
 		this.update()
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 }

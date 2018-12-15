@@ -1,10 +1,10 @@
-import { Component, Input, OnChanges, ViewChild, TemplateRef, Output, EventEmitter, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
-import { isSameDay, isSameMonth } from 'date-fns';
-import { ApiService } from 'src/app/api.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Component, Input, OnChanges, ViewChild, TemplateRef, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core'
+import { CalendarEvent, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar'
+import { isSameDay, isSameMonth } from 'date-fns'
+import { ApiService } from 'src/app/api.service'
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { Router } from '@angular/router'
+import { Subject, Subscription } from 'rxjs'
 
 
 @Component({
@@ -12,12 +12,13 @@ import { Subject } from 'rxjs';
 	templateUrl: './disponibility.component.html',
 	styleUrls: ['./disponibility.component.css'],
 })
-export class DisponibilityComponent implements OnInit, OnChanges {
+export class DisponibilityComponent implements OnInit, OnChanges, OnDestroy {
+	subscriptions: Subscription[] = []
 	@Input() item: object = {}
 	@Input() edit: boolean = false
 
 	@ViewChild('modalContent')
-	modalContent: TemplateRef<any>;
+	modalContent: TemplateRef<any>
 
 	@ViewChild('modalAddUse')
 	modalAddUse: TemplateRef<any>
@@ -33,7 +34,7 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 			this.handleEvent('selected', event)
 		}
 	}]
-	activeDayIsOpen: boolean = false;
+	activeDayIsOpen: boolean = false
 	modalData: object = {}
 	@Output() onDateSelected = new EventEmitter<string>()
 	selectedDate: string
@@ -44,7 +45,7 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 
 	ngOnInit() {
 		if (!this.edit) {
-			this.successRequest.subscribe(res => {
+			this.subscriptions.push(this.successRequest.subscribe(res => {
 				this.success = res
 				this.modal.open(this.modalAddUse)
 				// Update events
@@ -56,9 +57,9 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 				})
 				this.events = newEvents
 				this.refresh.next()
-			})
+			}))
 		} else {
-			this.successRequest.subscribe(res => {
+			this.subscriptions.push(this.successRequest.subscribe(res => {
 				this.events = []
 				let dates = this.getDateUnused()
 				dates.forEach(date => {
@@ -76,7 +77,7 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 					})
 				})
 				this.refresh.next()
-			})
+			}))
 		}
 	}
 
@@ -101,14 +102,14 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 		}
 	}
 
-	clickDay({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+	clickDay({ date, events }: { date: Date, events: CalendarEvent[] }): void {
 		if (!this.edit) {
 			if (isSameMonth(date, this.viewDate)) {
 				if (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true || events.length === 0) {
-					this.activeDayIsOpen = false;
+					this.activeDayIsOpen = false
 				} else {
-					this.viewDate = date;
-					this.activeDayIsOpen = true;
+					this.viewDate = date
+					this.activeDayIsOpen = true
 				}
 			}
 		}
@@ -155,8 +156,8 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 	eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
 		event.start = newStart
 		event.end = newEnd
-		// Parse disponibilities
 		
+		// Parse disponibilities
 		let new_dispo = []
 		this.item['disponibilities'].forEach(dispo => {
 			if (dispo === event.id) {
@@ -175,5 +176,9 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 		})
 		this.item['disponibilities'] = new_dispo
 		this.successRequest.next()	
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 }

@@ -1,13 +1,13 @@
 .no-result {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.no-result > p {
-    font-weight: 800;
-    font-size: 40px;
-    margin: 80px 0;
-    font-style: italic;
-    color: #495057;
+.no-result>p {
+	font-weight: 800;
+	font-size: 40px;
+	margin: 80px 0;
+	font-style: italic;
+	color: #495057;
 }

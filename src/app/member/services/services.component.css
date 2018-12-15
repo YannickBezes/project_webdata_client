@@ -5,15 +5,18 @@
 .update_service {
     margin-top: 40px;
 }
+
 .update_service h2 {
     font-size: 125%;
     margin-bottom: 10px;
     font-weight: bold;
 }
+
 .app-item {
     margin: 10px 0;
     width: 100%;
 }
+
 .app-item .edit,
 .app-item .remove {
     position: relative;

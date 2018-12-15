@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ApiService } from '../api.service';
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { ApiService } from '../api.service'
 
 
 @Component({
@@ -8,7 +8,7 @@ import { ApiService } from '../api.service';
 	templateUrl: './admin.component.html',
 	styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit{
+export class AdminComponent implements OnInit, OnDestroy {
 	private subscriptions: Subscription[] = []
 	members: object[] = []
 
@@ -20,6 +20,10 @@ export class AdminComponent implements OnInit{
 				this.members = res['data']
 			}
 		}))
+	}
+
+	ngOnDestroy() {
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 
 }

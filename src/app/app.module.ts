@@ -3,8 +3,8 @@ import { NgModule, LOCALE_ID } from '@angular/core'
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ReactiveFormsModule } from '@angular/forms'
-import { registerLocaleData } from '@angular/common';
-import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common'
+import localeFr from '@angular/common/locales/fr'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -14,9 +14,9 @@ import { MatNativeDateModule } from '@angular/material/core'
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { MemberModule } from './member/member.module'
-import { AdminModule } from './admin/admin.module';
+import { AdminModule } from './admin/admin.module'
 
-registerLocaleData(localeFr, 'fr');
+registerLocaleData(localeFr, 'fr')
 
 @NgModule({
 	declarations: [

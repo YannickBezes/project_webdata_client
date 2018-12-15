@@ -1,9 +1,10 @@
 .flex {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 54px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(100vh - 54px);
 }
+
 .row {
-    width: 100%;
+	width: 100%;
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/api.service';
-import { Subscription, Subject } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
+import { Subscription, Subject } from 'rxjs'
+
+import { ApiService } from '../../api.service'
 
 @Component({
 	selector: 'app-service',
@@ -28,18 +29,13 @@ export class ServiceComponent implements OnInit {
 		delete user['password']
 		delete user['role']
 		delete user['_id']
-		this.subscriptions.push(this.api.update_service_uses(this.item['_id'], {
-			user,
-			disponibility: date
-		}).subscribe(res => {
+		this.subscriptions.push(this.api.update_service_uses(this.item['_id'], { user, disponibility: date }).subscribe(res => {
 			this.successAddUse.next(res['status'] === 'success')
 		}))
 	}
 
 
 	ngOnDestroy() {
-		this.subscriptions.forEach(sub => {
-			sub.unsubscribe()
-		});
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 }

@@ -1,18 +1,21 @@
 .card {
-    margin: 20px 0;
-    padding: 40px;
+	margin: 20px 0;
+	padding: 40px;
 }
+
 .card h2 {
-    font-size: 24px;
-    font-weight: bold;
+	font-size: 24px;
+	font-weight: bold;
 }
+
 .calendar {
-    margin-top: 20px;
+	margin-top: 20px;
 }
+
 .calendar_view {
-    margin-top: 20px
+	margin-top: 20px
 }
 
 .btn.btn-outline-primary {
-    margin-right: 10px;
+	margin-right: 10px;
 }

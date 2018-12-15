@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ApiService } from '../api.service';
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { ApiService } from '../api.service'
 
 @Component({
 	selector: 'app-services',
 	templateUrl: './services.component.html',
 	styleUrls: ['./services.component.css']
 })
-export class ServicesComponent implements OnInit {
-
-	private subscriptions: Subscription[] = []
+export class ServicesComponent implements OnInit, OnDestroy {
+	subscriptions: Subscription[] = []
 	services: object[] = []
 
 	constructor(private api: ApiService) { }
@@ -51,10 +50,7 @@ export class ServicesComponent implements OnInit {
 	}
 
 	ngOnDestroy() {
-		// Unsubscribe each subscription to avoid leak memory
-		this.subscriptions.forEach(sub => {
-			sub.unsubscribe()
-		})
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 
 }

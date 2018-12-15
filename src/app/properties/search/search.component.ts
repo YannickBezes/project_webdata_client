@@ -1,13 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core'
 
 @Component({
 	selector: 'app-search',
 	templateUrl: './search.component.html',
 	styleUrls: ['./search.component.css']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
 	keyword: string = '' // Create a variable which are the value of the input 
-	date: Date;
+	date: Date
 
 	// Create an event to signal when the user whant to search something
 	@Output() toSearch = new EventEmitter<string>()
@@ -18,8 +18,6 @@ export class SearchComponent implements OnInit {
 	search_date() {
 		this.toSearchDate.emit(encodeURIComponent(this.date.toLocaleDateString("en")))
 	}
-
-	ngOnInit() { }
 
 	/**
 	 * Emit a the keyword

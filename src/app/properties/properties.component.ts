@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ApiService } from '../api.service';
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Subscription } from 'rxjs'
+import { ApiService } from '../api.service'
 
 @Component({
 	selector: 'app-properties',
@@ -50,9 +50,6 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		// Unsubscribe each subscription to avoid leak memory
-		this.subscriptions.forEach(sub => {
-			sub.unsubscribe()
-		})
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 }

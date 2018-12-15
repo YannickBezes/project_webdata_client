@@ -1,19 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core'
-import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs'
+import { Observable, BehaviorSubject, Subscription } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { map } from 'rxjs/operators'
+
 import config from '../../config'
-import { map, first } from 'rxjs/operators';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class ApiService implements OnDestroy {
-	private headers: HttpHeaders = new HttpHeaders()
+	subscriptions: Subscription[] = []
+	headers: HttpHeaders = new HttpHeaders()
 	public connected: boolean = false
-	private subscriptions: Subscription[] = []
-	public current_user_subject: BehaviorSubject<any>;
-    public current_user: Observable<any>;
+	public current_user_subject: BehaviorSubject<any>
+    public current_user: Observable<any>
 
 	constructor(private http: HttpClient) {
 		this.current_user_subject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')))
@@ -29,7 +29,7 @@ export class ApiService implements OnDestroy {
 		}))
 	}
 
-	public get current_user_value(): Object {
+	public get current_user_value(): object {
 		let user = { ...this.current_user_subject.value }
 		if(user['token'])
 			delete user['token']
@@ -39,7 +39,7 @@ export class ApiService implements OnDestroy {
 	ngOnDestroy() {
 		this.subscriptions.forEach(sub => {
 			sub.unsubscribe()
-		});
+		})
 	}
 
 	/**
@@ -50,7 +50,7 @@ export class ApiService implements OnDestroy {
 	public login(email: string, password: string): Observable<any> {
 		return this.http.post(`${config.API_URL}/login`, { email, password }).pipe(map(res => {
 			if (res['status'] === 'success') {
-				this.headers = this.headers.set('X-Auth-Token', res['data']['token']);
+				this.headers = this.headers.set('X-Auth-Token', res['data']['token'])
 				localStorage.setItem('user', JSON.stringify({ ...res['data']['user'], token: res['data']['token'] })) // Get information of the user
 				this.current_user_subject.next({ ...res['data']['user'], token: res['data']['token'] })
 				this.connected = true

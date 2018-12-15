@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription, Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Subscription, Subject } from 'rxjs'
+import { ActivatedRoute } from '@angular/router'
 
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/api.service'
 
 @Component({
 	selector: 'app-property',
@@ -40,8 +40,6 @@ export class PropertyComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
-		this.subscriptions.forEach(sub => {
-			sub.unsubscribe()
-		});
+		this.subscriptions.forEach(sub => sub.unsubscribe())
 	}
 }
