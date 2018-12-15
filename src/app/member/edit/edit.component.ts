@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CalendarEvent } from 'calendar-utils';
+import { Subject } from 'rxjs';
+import { CalendarEventTimesChangedEvent } from 'angular-calendar';
 
 @Component({
 	selector: 'app-edit',
@@ -20,6 +22,7 @@ export class EditComponent implements OnInit {
 	loading = false
 	submitted = false
 	disponibilities: object[] = []
+	sucessUpdate: Subject<any> = new Subject<any>()
 
 	constructor(private api: ApiService, private route: ActivatedRoute, private formBuilder: FormBuilder) { }
 
@@ -50,7 +53,7 @@ export class EditComponent implements OnInit {
 						this.item = res['data']
 						this.registerForm = this.formBuilder.group({
 							name: [this.item['name'], Validators.required],
-							description: [this.item['desciption'], Validators.required],
+							description: [this.item['description'], Validators.required],
 							keywords: [this.item['keywords'].join(',')],
 						})
 						this.parse_disponibilities()
@@ -59,9 +62,14 @@ export class EditComponent implements OnInit {
 				})
 			}
 		})
+
+		this.sucessUpdate.subscribe(data => {
+			this.parse_disponibilities() // to refresh date
+		})
 	}
 
 	parse_disponibilities() {
+		this.disponibilities = []
 		this.item['disponibilities'].forEach(el => {
 			let exist = false
 			this.item['uses'].forEach(use => {
@@ -109,10 +117,13 @@ export class EditComponent implements OnInit {
 						setTimeout(() => {
 							this.message = null
 						}, 1500);
+						this.item = res['data']
+						this.sucessUpdate.next()
 					} else
 						this.message = { type: 'error', text: res['message'] }
 				})
 			} else {
+				console.log(item)
 				this.api.update_service(item).subscribe(res => {
 					this.loading = false
 					if (res['status'] == "success") {
@@ -120,6 +131,8 @@ export class EditComponent implements OnInit {
 						setTimeout(() => {
 							this.message = null
 						}, 1500);
+						this.item = res['data']
+						this.sucessUpdate.next()
 					} else
 						this.message = { type: 'error', text: res['message'] }
 				})
@@ -131,5 +144,28 @@ export class EditComponent implements OnInit {
 		this.disponibilities.push({
 			date: null
 		})
+	}
+
+	eventTimechanged() {
+		let new_dispo = []
+		this.item['disponibilities'].forEach(el => {
+			this.item['uses'].forEach(use => {
+				if (use['disponibility'] === el)
+					new_dispo.push(el)
+			})
+		})
+		// Add unused disponibilities
+		this.disponibilities.forEach(el => {
+			let date = el['date'].toLocaleString("en")
+			new_dispo.push(`${date.split(', ')[0]} ${date.split(' ')[2]}`)
+		})
+		
+		this.item['disponibilities'] = new_dispo
+		this.sucessUpdate.next()
+	}
+
+	remove(index: number) {
+		this.disponibilities.splice(index, 1)
+		this.update()
 	}
 }

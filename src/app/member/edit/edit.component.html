@@ -68,7 +68,8 @@
 			</div>
 	</div>
 
-	<!-- <app-disponibility [item]="item" [edit]="true"></app-disponibility> -->
+	<app-disponibility [item]="item" [edit]="true" [successRequest]="sucessUpdate"></app-disponibility>
+
 	<div class="disponibilities card">
 		<h3>
 			Modifier les disponibilitées :
@@ -88,11 +89,22 @@
 			<tbody>
 				<tr *ngFor="let disponibility of disponibilities; let index = index">
 					<td>
-						<input class="form-control" type="text" mwlFlatpickr [(ngModel)]="disponibility.date" [altInput]="true"
-						 [convertModelValue]="true" [enableTime]="true" dateFormat="d/m/Y H:i" altFormat="d/m/Y H:i" placeholder="Not set">
+						<input
+							class="form-control"
+							type="text"
+							mwlFlatpickr
+							[(ngModel)]="disponibility.date"
+							(ngModelChange)="eventTimechanged()"
+							[altInput]="true"
+							[convertModelValue]="true"
+							[enableTime]="true"
+							dateFormat="d/m/Y H:i"
+							altFormat="d/m/Y H:i"
+							placeholder="Not set"
+						>
 					</td>
 					<td>
-						<button class="btn btn-danger" (click)="disponibilities.splice(index, 1)">
+						<button class="btn btn-danger" (click)="remove(index)">
 							Supprimer
 						</button>
 					</td>
@@ -100,3 +112,4 @@
 			</tbody>
 		</table>
 	</div>
+</div>

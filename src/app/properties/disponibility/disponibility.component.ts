@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, ViewChild, TemplateRef, Output, EventEmitter, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarEventAction, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarView, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { isSameDay, isSameMonth } from 'date-fns';
 import { ApiService } from 'src/app/api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,10 +18,10 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 
 	@ViewChild('modalContent')
 	modalContent: TemplateRef<any>;
-	
+
 	@ViewChild('modalAddUse')
 	modalAddUse: TemplateRef<any>
-	@Input() successAddUse: Subject<boolean>
+	@Input() successRequest: Subject<boolean>
 
 	view: CalendarView = CalendarView.Month
 	CalendarView = CalendarView
@@ -40,11 +40,11 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 	success: boolean
 	refresh: Subject<any> = new Subject()
 
-	constructor(private api: ApiService, private modal: NgbModal, private router: Router) {	}
+	constructor(private api: ApiService, private modal: NgbModal, private router: Router) { }
 
 	ngOnInit() {
 		if (!this.edit) {
-			this.successAddUse.subscribe(res => {
+			this.successRequest.subscribe(res => {
 				this.success = res
 				this.modal.open(this.modalAddUse)
 				// Update events
@@ -55,6 +55,26 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 						newEvents.push(event)
 				})
 				this.events = newEvents
+				this.refresh.next()
+			})
+		} else {
+			this.successRequest.subscribe(res => {
+				this.events = []
+				let dates = this.getDateUnused()
+				dates.forEach(date => {
+					this.events.push({
+						start: new Date(date.split(' ')[0] + ' ' + (date.split(' ')[1] === 'AM' ? "00:00" : "12:00")),
+						end: new Date(date.split(' ')[0] + ' ' + (date.split(' ')[1] === 'AM' ? "12:00" : "23:00")),
+						title: `${this.item['name']} disponible`,
+						color: {
+							primary: '#e94a77',
+							secondary: '#e94a77'
+						},
+						actions: this.edit ? null : this.actions,
+						id: date,
+						draggable: this.edit
+					})
+				})
 				this.refresh.next()
 			})
 		}
@@ -73,7 +93,7 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 						primary: '#e94a77',
 						secondary: '#e94a77'
 					},
-					actions: this.actions,
+					actions: this.edit ? null : this.actions,
 					id: date,
 					draggable: this.edit
 				})
@@ -82,12 +102,14 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 	}
 
 	clickDay({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-		if (isSameMonth(date, this.viewDate)) {
-			if (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true || events.length === 0) {
+		if (!this.edit) {
+			if (isSameMonth(date, this.viewDate)) {
+				if (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true || events.length === 0) {
 					this.activeDayIsOpen = false;
-			} else {
-				this.viewDate = date;
-				this.activeDayIsOpen = true;
+				} else {
+					this.viewDate = date;
+					this.activeDayIsOpen = true;
+				}
 			}
 		}
 	}
@@ -99,7 +121,7 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 			this.modal.open(this.modalContent, { size: 'lg' })
 		} else {
 			this.modalData['status'] = 0
-			this.modal.open(this.modalContent, { size: 'lg'})
+			this.modal.open(this.modalContent, { size: 'lg' })
 		}
 	}
 
@@ -130,4 +152,28 @@ export class DisponibilityComponent implements OnInit, OnChanges {
 		return dates
 	}
 
+	eventTimesChanged({ event, newStart, newEnd }: CalendarEventTimesChangedEvent): void {
+		event.start = newStart
+		event.end = newEnd
+		// Parse disponibilities
+		
+		let new_dispo = []
+		this.item['disponibilities'].forEach(dispo => {
+			if (dispo === event.id) {
+				let date = event.start.toLocaleString("en")
+				new_dispo.push(`${date.split(', ')[0]} ${date.split(' ')[2]}`)
+			} else {
+				new_dispo.push(dispo)
+			}
+		})
+		this.item['disponibilities'].forEach(dispo => {
+			this.item['uses'].forEach(use => {
+				if (use['disponibility'] == dispo) {
+					new_dispo.push(dispo)
+				}
+			})
+		})
+		this.item['disponibilities'] = new_dispo
+		this.successRequest.next()	
+	}
 }

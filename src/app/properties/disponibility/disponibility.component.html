@@ -40,6 +40,7 @@
 				[refresh]="refresh"
 				(dayClicked)="clickDay($event.day)"
 				(eventClicked)="handleEvent('selected', $event.event)"
+				(eventTimesChanged)="eventTimesChanged($event)"
 			></mwl-calendar-month-view>
 			<mwl-calendar-week-view 
 				*ngSwitchCase="CalendarView.Week"
@@ -47,6 +48,7 @@
 				[events]="events"
 				[refresh]="refresh"
 				(eventClicked)="handleEvent('selected', $event.event)"
+				(eventTimesChanged)="eventTimesChanged($event)"
 				[hourSegments]="1"
 			></mwl-calendar-week-view>
 		</div>
@@ -65,7 +67,7 @@
 		<p *ngSwitchCase="0">Action impossible vous devez être connecté</p>
 	</div>
 	<div class="modal-footer" [ngSwitch]="modalData['status']">
-		<div *ngSwitchCase="1">
+		<div *ngSwitchDefault>
 			<button type="button" class="btn btn-outline-primary" (click)="clickedYes()">Oui</button>
 			<button type="button" class="btn btn-outline-secondary" (click)="close()">Non</button>
 		</div>
@@ -78,17 +80,17 @@
 
 
 <ng-template #modalAddUse let-close="close">
-		<div class="modal-header">
-			<h5 class="modal-title">Résultat</h5>
-			<button type="button" class="close" (click)="close()">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<div class="modal-body" [ngSwitch]="success">
-			<p *ngSwitchCase="true">Ajout réussis</p>
-			<p *ngSwitchCase="false">Echec de l'ajout</p>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-outline-secondary" (click)="close()">Fermer</button>
-		</div>
-	</ng-template>
+	<div class="modal-header">
+		<h5 class="modal-title">Résultat</h5>
+		<button type="button" class="close" (click)="close()">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<div class="modal-body" [ngSwitch]="success">
+		<p *ngSwitchCase="true">Ajout réussis</p>
+		<p *ngSwitchCase="false">Echec de l'ajout</p>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-secondary" (click)="close()">Fermer</button>
+	</div>
+</ng-template>
