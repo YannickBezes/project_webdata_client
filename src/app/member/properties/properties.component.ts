@@ -60,7 +60,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 			})
 
 			this.loading = true
-			this.api.add_property(property).subscribe(res => {
+			this.subscriptions.push(this.api.add_property(property).subscribe(res => {
 				this.loading = false
 				if (res['status'] == "success") {
 					this.message = { type: 'success', text: 'Ajout réussi' }
@@ -70,7 +70,7 @@ export class PropertiesComponent implements OnInit, OnDestroy {
 					}, 1500)
 				} else
 					this.message = { type: 'error', text: res['message'] }
-			})
+			}))
 		}
 	}
 
